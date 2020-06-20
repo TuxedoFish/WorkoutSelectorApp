@@ -3,4 +3,8 @@
     <string name="equipment_description">Equipment:</string>
     <string name="target_description">Target Muscle Group</string>
     <string name="equipment_button">Select Equipment</string>
+    <string name="placeholder_workout_title">Workout Loading...</string>
+    <string name="authorBy">"By "</string>
+    <string name="placeholder_workout_author">author loading...</string>
+    <string name="bullet_point">&#8226;</string>
 </resources>

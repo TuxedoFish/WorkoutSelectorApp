@@ -10,4 +10,8 @@
 
     <color name="inputTextColor">#000</color>
     <color name="textColor">#000</color>
+    <color name="cardColor">#F5F5F5</color>
+    <color name="textColorLight">#ffffff</color>
+
+    <color name="shadow">#034343dd</color>
 </resources>

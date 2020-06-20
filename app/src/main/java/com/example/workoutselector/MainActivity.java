@@ -11,6 +11,8 @@ import android.widget.Spinner;
 
 import com.example.workoutselector.components.HorizontalWorkoutScrollerView;
 import com.example.workoutselector.components.IEventEnd;
+import com.example.workoutselector.components.WorkoutDAO;
+import com.example.workoutselector.utils.DummyData;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,6 +46,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         // Get the workout scroller view
         workoutScroller = (HorizontalWorkoutScrollerView) findViewById(R.id.horizontalSpinner);
         workoutScroller.setEventEnd(this);
+
+        // TODO: Get exercises from firebase
+        ArrayList<WorkoutDAO> workouts = new ArrayList<>();
+        int amount = 10;
+        for(int i = 0; i < amount; i++) {
+            workouts.add(DummyData.getDummyWorkout());
+        }
+        workoutScroller.setListOfExercises(workouts);
 
         // Set the spin button listener
         spinButton = (Button) findViewById(R.id.spinButton);

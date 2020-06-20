@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D8CFF</color>
+    <color name="colorPrimaryDark">#39394D</color>
+    <color name="colorAccent">#FF7200</color>
+    <color name="colorBackground">#ffffff</color>
+
+    <color name="actionBarText">#ffffff</color>
+    <color name="actionBarBackground">#2D8CFF</color>
+
+    <color name="inputTextColor">#000</color>
+    <color name="textColor">#000</color>
+</resources>

@@ -1,28 +1,27 @@
-package com.example.workoutselector.components;
+package com.example.workoutselector.frontend.components;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Switch;
+import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workoutselector.R;
+import com.example.workoutselector.backend.firebase.WorkoutDAO;
+import com.example.workoutselector.frontend.adapters.Exercise;
+import com.example.workoutselector.frontend.adapters.ExerciseListAdapter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class WorkoutView extends ConstraintLayout {
 
     // Text components
-    private TextView titleText, authorText;
+    private TextView titleText, authorText, repetitionsText;
 
     // List of exercises
     private RecyclerView exercises;
@@ -47,6 +46,7 @@ public class WorkoutView extends ConstraintLayout {
 
         CharSequence title = typedArray.getText(R.styleable.WorkoutView_titleText);
         CharSequence author = typedArray.getText(R.styleable.WorkoutView_authorText);
+        CharSequence repetitions = typedArray.getText(R.styleable.WorkoutView_repetitionsText);
 
         typedArray.recycle();
 
@@ -54,22 +54,36 @@ public class WorkoutView extends ConstraintLayout {
 
         setAuthor(author);
         setTitle(title);
-
+        setRepetitions(repetitions);
     }
 
     // Updates the adapter
     public void update(WorkoutDAO workout) {
-        exercisesListAdapter.setExcerciseNames(workout.getExercises());
+        exercisesListAdapter = new ExerciseListAdapter(context, workout.getExercises());
+        exercises.setAdapter(exercisesListAdapter);
 
         setAuthor(workout.getAuthor());
         setTitle(workout.getTitle());
+        setRepetitions(workout.getRepetitions());
+
+        // Changes the height to be big enough to contain the workout
+        ViewGroup.LayoutParams params = exercises.getLayoutParams();
+        int HEIGHT_PER_ENTRY = 68;
+        int height = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                HEIGHT_PER_ENTRY * workout.getExercises().size(),
+                getResources().getDisplayMetrics());
+        params.height = height;
+        exercises.setLayoutParams(params);
     }
 
     private void initComponents() {
         titleText = (TextView) findViewById(R.id.titleText);
         authorText = (TextView) findViewById(R.id.authorText);
         exercises = (RecyclerView) findViewById(R.id.exercisesList);
+        repetitionsText = (TextView) findViewById(R.id.repetitionsText);
 
+        exercises.setNestedScrollingEnabled(false);
         initExercisesList();
     }
 
@@ -77,8 +91,17 @@ public class WorkoutView extends ConstraintLayout {
         exercisesLayoutManager = new LinearLayoutManager(context);
         exercises.setLayoutManager(exercisesLayoutManager);
 
-        exercisesListAdapter = new ExerciseListAdapter(context, new String[] {});
+        ArrayList<Exercise> exerciseFakeList = new ArrayList<>();
+        exerciseFakeList.add(new Exercise("Crunches", false, "5"));
+
+        exercisesListAdapter = new ExerciseListAdapter(context, exerciseFakeList);
         exercises.setAdapter(exercisesListAdapter);
+
+    }
+
+
+    private void setRepetitions(CharSequence repetitions) {
+        repetitionsText.setText(repetitions + " repetitions");
     }
 
     private void setTitle(CharSequence title) {

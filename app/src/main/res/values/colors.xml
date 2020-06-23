@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2D8CFF</color>
-    <color name="colorPrimaryDark">#39394D</color>
-    <color name="colorAccent">#FF7200</color>
-    <color name="colorBackground">#ffffff</color>
+    <color name="colorPrimary">#39394D</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorPrimaryLight">#2D8CFF</color>
+    <color name="colorAccent">#3EC300</color>
+    <color name="colorBackground">#f2f2f7</color>
+
+    <color name="colorWhite">#ffffff</color>
 
     <color name="actionBarText">#ffffff</color>
     <color name="actionBarBackground">#2D8CFF</color>
 
     <color name="inputTextColor">#000</color>
     <color name="textColor">#000</color>
-    <color name="cardColor">#F5F5F5</color>
+    <color name="cardColor">#ffffff</color>
     <color name="textColorLight">#ffffff</color>
 
     <color name="shadow">#034343dd</color>
+
+    <color name="settingColor1">#ff2d55</color>
+    <color name="settingColor2">#f79923</color>
+    <color name="settingColor3">#007afc</color>
+    <color name="settingColor4">#33c759</color>
+    <color name="settingColor5">#5756d0</color>
+    <color name="settingColor6">#fecc26</color>
+    <color name="settingColor7">#6a6c74</color>
+    <color name="settingColor8">#000000</color>
 </resources>

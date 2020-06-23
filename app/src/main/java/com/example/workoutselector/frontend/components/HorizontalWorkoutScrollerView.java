@@ -1,4 +1,4 @@
-package com.example.workoutselector.components;
+package com.example.workoutselector.frontend.components;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.workoutselector.R;
+import com.example.workoutselector.backend.firebase.WorkoutDAO;
 
 import java.util.ArrayList;
 
@@ -57,6 +58,7 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
     }
 
     public void setValueRandom(final int image, final int rotate_count) {
+
         current_view.animate().translationX(-current_view.getWidth()).setDuration(ANIMATION_DUR).start();
         next_view.setTranslationX(current_view.getWidth());
         next_view.animate()
@@ -65,9 +67,11 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+
                         super.onAnimationEnd(animation);
-                        setView(current_view, old_value%NUMBER_OF_VIEWS);
+                        setView(current_view, NUMBER_OF_VIEWS<=1 ? 0 : old_value%(NUMBER_OF_VIEWS-1));
                         current_view.setTranslationX(0);
+
                         if(old_value != rotate_count) {
                             setValueRandom(image, rotate_count);
                             old_value ++;
@@ -75,6 +79,7 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
                             last_result = 0;
                             old_value = 0;
                             setView(next_view, image);
+                            eventEnd.eventEnd(image, rotate_count);
                         }
                     }
                 });
@@ -90,5 +95,9 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
 
     public int getValue() {
         return Integer.parseInt(next_view.getTag().toString());
+    }
+
+    public int getNumberOfWorkouts() {
+        return NUMBER_OF_VIEWS;
     }
 }

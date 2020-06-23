@@ -7,4 +7,12 @@
     <string name="authorBy">"By "</string>
     <string name="placeholder_workout_author">author loading...</string>
     <string name="bullet_point">&#8226;</string>
+    <string name="companyName">Harry Liversedge</string>
+    <string name="equipmentAvailable">Available Equipment</string>
+    <string name="test">Test</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="loading">Loading...</string>
+    <string name="home_settings_description">What kind of workout?</string>
+    <string name="randomize">Randomize!</string>
+    <string name="repetitions_placeholder">Repetitions</string>
 </resources>

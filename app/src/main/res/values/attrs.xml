@@ -3,5 +3,12 @@
     <declare-styleable name="WorkoutView">
         <attr name="titleText" format="string"></attr>
         <attr name="authorText" format="string"></attr>
+        <attr name="repetitionsText" format="string"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="SettingsItem">
+        <attr name="settingsText" format="string"></attr>
+        <attr name="settingsIconImage" format="string"></attr>
+        <attr name="settingsIconColor" format="string"></attr>
     </declare-styleable>
 </resources>

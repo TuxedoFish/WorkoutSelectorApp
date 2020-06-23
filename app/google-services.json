@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "668106223579",
+    "firebase_url": "https://workoutselector-13cfd.firebaseio.com",
+    "project_id": "workoutselector-13cfd",
+    "storage_bucket": "workoutselector-13cfd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668106223579:android:00c384fda8d8fba22181fe",
+        "android_client_info": {
+          "package_name": "com.example.workoutselector"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668106223579-2fllp0jt256hjoji6fsrq27r64amtdih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArH3QZgREA9yzyCiyIOIgScbbWJizpJJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668106223579-2fllp0jt256hjoji6fsrq27r64amtdih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

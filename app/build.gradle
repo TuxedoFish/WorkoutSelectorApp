@@ -61,4 +61,7 @@ dependencies {
 
     // Multidex support
     implementation 'com.android.support:multidex:1.0.3'
+
+    // Nacho view
+    implementation "com.hootsuite.android:nachos:1.1.1"
 }

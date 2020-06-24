@@ -4,41 +4,39 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import com.example.workoutselector.R;
 import com.example.workoutselector.backend.db.databases.AppDatabase;
 import com.example.workoutselector.backend.db.entities.SettingTable;
+import com.example.workoutselector.backend.db.entities.WorkoutTable;
 import com.example.workoutselector.backend.db.migrations.Migrations;
 import com.example.workoutselector.backend.firebase.FirebaseWorkoutData;
 import com.example.workoutselector.backend.firebase.FirebaseWorkoutLoader;
 import com.example.workoutselector.frontend.components.HorizontalWorkoutScrollerView;
 import com.example.workoutselector.frontend.components.IEventEnd;
 import com.example.workoutselector.backend.firebase.WorkoutDAO;
-import com.example.workoutselector.utils.DummyData;
+import com.hootsuite.nachos.NachoTextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static com.example.workoutselector.utils.Constants.DEBUGGING;
+import static com.example.workoutselector.utils.Constants.DEBUG_TAG;
+import static com.example.workoutselector.utils.Constants.FORCE_RELOAD;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
-        IEventEnd, FirebaseWorkoutLoader {
-
-    // Selected area to target
-    private boolean hasSelected;
-    private String muscleGroup;
+public class MainActivity extends AppCompatActivity implements IEventEnd, FirebaseWorkoutLoader {
 
     // Equipment available
     private List<SettingTable> equipment;
 
     // Spinning animation
-    private Spinner spinner;
     private Button spinButton;
     private HorizontalWorkoutScrollerView workoutScroller;
 
@@ -47,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     // Local SQL holding the settings
     private AppDatabase localDB;
+
+    // Nacho type views for the muscle group
+    private NachoTextView muscleGroupsView;
+
+    //nachoTextView.setAdapter(adapter);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +61,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         workoutScroller.setEventEnd(this);
 
         // Fetch the spinner object
-        spinner = (Spinner) findViewById(R.id.muscleGroupSelector);
+        muscleGroupsView = (NachoTextView) findViewById(R.id.muscleGroupSelector);
 
         // Set the spin button listener
         spinButton = (Button) findViewById(R.id.spinButton);
         spinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Update the scroller
+                updateScroller();
+
                 workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
                 spinButton.setEnabled(false);
             }
@@ -88,8 +94,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         equipment = localDB.appDao().getSettings();
 
         // TODO: Only call these functions occassionally and cache data
-        // Load the workouts from firebase
-        FirebaseWorkoutData.loadWorkouts(this);
+        // Load the workouts from firebase only if there are none locally
+        boolean shouldReload = localDB.appDao().getAllWorkouts().size() == 0;
+        if(shouldReload || FORCE_RELOAD) {
+            // clear all the old data
+            localDB.appDao().deleteWorkouts();
+            localDB.appDao().deleteExerciseGroups();
+            localDB.appDao().deleteExercises();
+
+            FirebaseWorkoutData.loadWorkouts(this);
+        }
 
         // Load target areas from firebase
         FirebaseWorkoutData.loadTargetAreas(this);
@@ -98,26 +112,100 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         FirebaseWorkoutData.loadEquipment(this);
     }
 
-    private ArrayList<String> getMuscleGroups() {
-        ArrayList<String> muscleGroups = new ArrayList<>();
+    private void updateScroller() {
 
-        muscleGroups.add("Arms");
-        muscleGroups.add("Back");
-        muscleGroups.add("Legs");
+        // Get the workouts filtered out
+        List<WorkoutTable> workoutTables = localDB.appDao().getAllWorkouts();
+        ArrayList<WorkoutDAO> workouts = new ArrayList<>();
 
-        return muscleGroups;
+        // Convert these to the access objects from the SQL
+        for(int i=0; i<workoutTables.size(); i++) {
+
+            WorkoutTable workout = workoutTables.get(i);
+
+            if(isWorkoutPossible(workout)) {
+                workouts.add(
+                    new WorkoutDAO(
+                            workout.title,
+                            workout.author,
+                            workout.authorURL,
+                            workout.equipmentTags,
+                            workout.areaTags,
+                            workout.id,
+                            localDB
+                    )
+                );
+            }
+        }
+
+        // Update the list of views on the scroller
+        workoutScroller.setListOfExercises(workouts);
+        if(DEBUGGING) {
+            Log.d(DEBUG_TAG, "Number of workouts filtered: " + workouts.size() + " / " + workoutTables.size());
+        }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-        // Selected an item so we can start
-        hasSelected = true;
-        muscleGroup = parent.getItemAtPosition(i).toString();
+    /**
+     * Filters out workouts that I do not have either
+     * the equipment for, or that I am not looking for
+     *
+     * @param workout
+     * @return
+     */
+    private boolean isWorkoutPossible(WorkoutTable workout) {
+        // Filter out the workout if it has equipment we do not have
+        List<String> equipment = workout.equipmentTags;
+        for(int i=0; i<equipment.size(); i++) {
+            String name = equipment.get(0);
+            SettingTable setting = getEquipmentSetting(name.toLowerCase());
+
+            // If this setting does not exist
+            if(setting == null) {
+                // Use this to check if there is equipment that is used in the data but not in the app
+                if(DEBUGGING) {
+                    Log.d(DEBUG_TAG, "Missing equipment from app: " + name);
+                }
+                return false;
+            }
+            // If I do not have this piece of equipment
+            if(!setting.activated) {
+                return false;
+            }
+        }
+
+        // If it passes all these tests then return true
+        return true;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-        // TODO: Deal with what happens if they select nothing
+    /**
+     * Used to find close matches to dumbells from dumbell e.g
+     *
+     * @param settingName
+     * @return
+     */
+    private SettingTable getEquipmentSetting(String settingName) {
+
+        // Define the length here
+        int n = settingName.length();
+
+        // Try the actual word
+        List<SettingTable> settings = localDB.appDao().getSettingByName(settingName);
+        if(settings.size() != 0) { return settings.get(0); }
+
+        // Try taking -s of last word i.e
+        // push ups => push up
+        if(settingName.endsWith("s")) {
+            settings = localDB.appDao().getSettingByName(settingName.substring(0, n-1));
+            if(settings.size() != 0) { return settings.get(0); }
+        }
+        // Same with ending in -es i.e
+        // crunches => crunch
+        if(settingName.endsWith("es")) {
+            settings = localDB.appDao().getSettingByName(settingName.substring(0, n-2));
+            if(settings.size() != 0) { return settings.get(0); }
+        }
+
+        return null;
     }
 
     @Override
@@ -127,32 +215,70 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onWorkoutsLoadedSuccess(ArrayList<WorkoutDAO> workouts) {
-        // Update the current workouts
-        workoutScroller.setListOfExercises(workouts);
-    }
-
-    @Override
-    public void onWorkoutsLoadedFailure() {
-        // TODO: Deal with firebase errors
-    }
-
-    @Override
     public void onTargetsLoadedFailure() {
         // TODO: Deal with no targets being loaded
     }
 
     @Override
-    public void onTargetsLoadedSuccess(List<String> targets) {
+    public void onTargetsLoadedSuccess(final List<String> targets) {
         // Apply the loaded targets to the drop down menu
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this, R.layout.spinner_item,
-                        targets); //selected item will look like a spinner set from XML
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+
+        // Using android element
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, targets);
+
+        // Using custom element
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, new String[] {});
+
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        muscleGroupsView.setAdapter(adapter);
+
+        // Set all options as selected
+        muscleGroupsView.setText(targets);
+
+        // Set dropdown to always appear
+        muscleGroupsView.setThreshold(0);
+        muscleGroupsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                muscleGroupsView.showDropDown();
+            }
+        });
+
+        // Change the suggestions based on which ones are present
+        muscleGroupsView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                // Filter the suggestions based on what is there
+                ArrayList<String> suggestions = new ArrayList<>();
+                List<String> values = muscleGroupsView.getChipValues();
+
+                for(int i=0; i<targets.size(); i++) {
+                    String suggestion = targets.get(i);
+
+                    if(!values.contains(suggestion)) {
+                        suggestions.add(suggestion);
+                    }
+                }
+
+                // Using custom element
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.spinner_item, suggestions);
+
+                // Apply the adapter to the spinner
+                muscleGroupsView.setAdapter(adapter);
+            }
+        });
     }
 
     @Override

@@ -45,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Update settings
                 for(int i=0; i<settings.size(); i++) {
-                    localDB.appDao().updateSetting(i, settingsListAdapter.getItem(i).isState());
+                    Setting item = settingsListAdapter.getItem(i);
+                    localDB.appDao().updateSetting(item.getId(), item.isState());
                 }
 
                 // Navigate to home again

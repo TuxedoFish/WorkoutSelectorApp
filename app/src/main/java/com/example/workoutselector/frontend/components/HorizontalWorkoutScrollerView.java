@@ -20,6 +20,7 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
     private static int ANIMATION_DUR = 120;
     private int NUMBER_OF_VIEWS = 0;
     private WorkoutView current_view, next_view;
+    private WorkoutDAO PLACEHOLDER;
 
     private int last_result=0, old_value=0;
 
@@ -44,15 +45,24 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
     public void setListOfExercises(ArrayList<WorkoutDAO> workouts) {
         this.workouts = workouts;
         this.NUMBER_OF_VIEWS = workouts.size();
-
-        current_view.update(workouts.get(0));
-        next_view.update(workouts.get(0));
     }
 
     private void init(Context context) {
+        PLACEHOLDER = new WorkoutDAO(
+                "Spin to find a workout!",
+                "",
+                "",
+                null,
+                null,
+                0,
+                null
+        );
         LayoutInflater.from(context).inflate(R.layout.horizontal_workout_scroller, this);
         current_view = (WorkoutView) getRootView().findViewById(R.id.current_view);
         next_view = (WorkoutView) getRootView().findViewById(R.id.next_view);
+
+        current_view.update(PLACEHOLDER);
+        next_view.update(PLACEHOLDER);
 
         next_view.setTranslationX(getWidth());
     }

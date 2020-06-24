@@ -16,19 +16,19 @@ import java.util.List;
 
 public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapter.ViewHolder>{
 
-    private List<Exercise> exercises;
+    private List<WorkoutElement> exercises;
     private Context context;
     private View view;
     private ViewHolder viewHolder;
     private ExerciseImageIds exerciseImageIDs;
 
-    public ExerciseListAdapter(Context context, List<Exercise> exerciseNames){
+    public ExerciseListAdapter(Context context, List<WorkoutElement> exerciseNames){
         this.exercises = exerciseNames;
         this.context = context;
         this.exerciseImageIDs = new ExerciseImageIds();
     }
 
-    public void setExercises(List<Exercise> exercises) {
+    public void setExercises(List<WorkoutElement> exercises) {
         this.exercises = exercises;
     }
 
@@ -57,33 +57,16 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         return viewHolder;
     }
 
-    private String convertToTime(String duration) {
-        int seconds = Integer.parseInt(duration);
-
-        if(seconds < 60) {
-            return seconds + " s";
-        } else {
-            int minutes = seconds % 60;
-            seconds = seconds - (minutes * 60);
-            return seconds==0 ? minutes + " m" : minutes + " m " + seconds + " s";
-        }
-    }
-
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        Exercise exercise = exercises.get(position);
+        WorkoutElement exercise = exercises.get(position);
 
         String name = exercise.getName();
         String duration = exercise.getDuration();
-        Integer image = exerciseImageIDs.getImageByExerciseName(name);
-        Boolean isTimed = exercise.isTimed();
+        Integer image = exerciseImageIDs.getImageByExerciseName(exercise.getImageName());
 
-        if(isTimed) {
-            holder.exerciseLengthTextView.setText(convertToTime(duration));
-        } else {
-            holder.exerciseLengthTextView.setText(duration);
-        }
         holder.exerciseNameTextView.setText(name);
+        holder.exerciseLengthTextView.setText(duration);
         holder.exerciseImageView.setImageResource(image);
     }
 

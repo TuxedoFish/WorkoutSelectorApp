@@ -1,3 +1,6 @@
+# Upload scripts
+/uploading_scripts/
+
 # Built application files
 /*/build/
 
@@ -12,6 +15,9 @@ local.properties
 
 # Signing files
 .signing/
+*.jks
+*.pepk
+keys/
 
 # User-specific configurations
 /*/.idea/libraries/

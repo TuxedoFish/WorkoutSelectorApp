@@ -13,6 +13,8 @@
     <string name="confirm_button">Confirm</string>
     <string name="loading">Loading...</string>
     <string name="home_settings_description">What kind of workout?</string>
-    <string name="randomize">Randomize!</string>
+    <string name="randomize">New workout</string>
     <string name="repetitions_placeholder">Repetitions</string>
+    <string name="workout_by">Workout by,</string>
+    <string name="no_text" />
 </resources>

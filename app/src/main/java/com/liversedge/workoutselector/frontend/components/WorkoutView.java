@@ -1,7 +1,10 @@
 package com.liversedge.workoutselector.frontend.components;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -27,12 +30,13 @@ import java.util.List;
 public class WorkoutView extends ConstraintLayout {
 
     // Text components
-    private TextView titleText, authorText;
+    private TextView authorText;
 
     // List of exercises
     private RecyclerView exercises;
     private LinearLayoutManager exercisesLayoutManager;
     private ExerciseListAdapter exercisesListAdapter;
+    private ConstraintLayout authorLabel;
 
     // Saved for updates
     Context context;
@@ -50,7 +54,6 @@ public class WorkoutView extends ConstraintLayout {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WorkoutView);
 
-        CharSequence title = typedArray.getText(R.styleable.WorkoutView_titleText);
         CharSequence author = typedArray.getText(R.styleable.WorkoutView_authorText);
         CharSequence repetitions = typedArray.getText(R.styleable.WorkoutView_repetitionsText);
 
@@ -59,11 +62,10 @@ public class WorkoutView extends ConstraintLayout {
         initComponents();
 
         setAuthor(author);
-        setTitle(title);
     }
 
     // Updates the adapter
-    public void update(WorkoutDAO workout) {
+    public void update(final WorkoutDAO workout) {
 
         // Make the list with the size
         List<ExerciseGroupDAO> groups = workout.getExerciseGroups();
@@ -101,29 +103,48 @@ public class WorkoutView extends ConstraintLayout {
             }
         }
 
+        // Set up the exercises
         exercisesListAdapter = new ExerciseListAdapter(context, displayItems);
         exercises.setAdapter(exercisesListAdapter);
 
+        // Change the author name
         setAuthor(workout.getAuthor());
-        setTitle(workout.getTitle());
+
+        // Open instagram page on click
+        authorLabel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(workout.getAuthor_url());
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.instagram.android");
+
+                try {
+                    context.startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    context.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://instagram.com/xxx")));
+                }
+            }
+        });
 
         // Changes the height to be big enough to contain the workout
-        ViewGroup.LayoutParams params = exercises.getLayoutParams();
-        int HEIGHT_PER_ENTRY = 68;
-        int height = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                HEIGHT_PER_ENTRY * displayItems.size(),
-                getResources().getDisplayMetrics());
-        params.height = height;
-        exercises.setLayoutParams(params);
+//        ViewGroup.LayoutParams params = exercises.getLayoutParams();
+//        int HEIGHT_PER_ENTRY = 68;
+//        int height = (int) TypedValue.applyDimension(
+//                TypedValue.COMPLEX_UNIT_DIP,
+//                HEIGHT_PER_ENTRY * displayItems.size(),
+//                getResources().getDisplayMetrics());
+//        params.height = height;
+//        exercises.setLayoutParams(params);
     }
 
     private void initComponents() {
-        titleText = (TextView) findViewById(R.id.titleText);
         authorText = (TextView) findViewById(R.id.authorText);
         exercises = (RecyclerView) findViewById(R.id.exercisesList);
+        authorLabel = (ConstraintLayout) findViewById(R.id.descriptionTitle);
 
-        exercises.setNestedScrollingEnabled(false);
+//        exercises.setNestedScrollingEnabled(false);
         initExercisesList();
     }
 
@@ -139,14 +160,10 @@ public class WorkoutView extends ConstraintLayout {
 
     }
 
-    private void setTitle(CharSequence title) {
-        titleText.setText(title);
-    }
-
     private void setAuthor(CharSequence author) {
         if(author != null) {
             if (!author.toString().equals("")) {
-                authorText.setText("By " + author);
+                authorText.setText(author);
                 exercises.setVisibility(View.VISIBLE);
             } else {
 //                authorText.setVisibility(View.GONE);

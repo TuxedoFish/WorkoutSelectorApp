@@ -1,12 +1,15 @@
 package com.liversedge.workoutselector.frontend.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.liversedge.workoutselector.R;
@@ -68,6 +71,34 @@ public class ExerciseListAdapter extends RecyclerView.Adapter<ExerciseListAdapte
         holder.exerciseNameTextView.setText(name);
         holder.exerciseLengthTextView.setText(duration);
         holder.exerciseImageView.setImageResource(image);
+
+        if(exercise.shouldCenter()) {
+            // Remove other elements
+            holder.exerciseImageView.setVisibility(View.GONE);
+            holder.exerciseLengthTextView.setVisibility(View.GONE);
+            // Center text
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.exerciseNameTextView.getLayoutParams();
+            params.horizontalBias = 0.5f;
+            holder.exerciseNameTextView.setLayoutParams(params);
+            holder.exerciseNameTextView.setGravity(Gravity.CENTER);
+            // Make text bold
+            holder.exerciseNameTextView.setTypeface(null, Typeface.BOLD);
+            // Change text size
+            holder.exerciseNameTextView.setTextSize(22);
+        } else {
+            // Remove other elements
+            holder.exerciseImageView.setVisibility(View.VISIBLE);
+            holder.exerciseLengthTextView.setVisibility(View.VISIBLE);
+            // Clear constraints
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.exerciseNameTextView.getLayoutParams();
+            params.horizontalBias = 0.0f;
+            holder.exerciseNameTextView.setLayoutParams(params);
+            holder.exerciseNameTextView.setGravity(Gravity.LEFT);
+            // Make text normal
+            holder.exerciseNameTextView.setTypeface(null, Typeface.NORMAL);
+            // Normal size
+            holder.exerciseNameTextView.setTextSize(18);
+        }
     }
 
     @Override

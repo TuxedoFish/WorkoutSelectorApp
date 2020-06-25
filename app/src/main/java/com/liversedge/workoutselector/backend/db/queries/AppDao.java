@@ -31,7 +31,7 @@ public interface AppDao {
     @Query("SELECT * FROM exercise_groups WHERE workout_id = :id ")
     List<ExerciseGroupTable> getExerciseGroupsByID(int id);
 
-    @Query("SELECT * FROM exercises WHERE group_id = :group_id ")
+    @Query("SELECT * FROM exercises WHERE group_id = :group_id ORDER BY id ")
     List<Exercise> getExercisesByGroupID(int group_id);
 
     /* Updates */

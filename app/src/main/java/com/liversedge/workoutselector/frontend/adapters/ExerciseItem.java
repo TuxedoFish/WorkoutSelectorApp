@@ -50,4 +50,9 @@ public class ExerciseItem implements WorkoutElement{
     public String getImageName() {
         return name;
     }
+
+    @Override
+    public Boolean shouldCenter() {
+        return false;
+    }
 }

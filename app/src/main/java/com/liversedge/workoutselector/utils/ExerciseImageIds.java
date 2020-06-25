@@ -29,6 +29,7 @@ public class ExerciseImageIds {
         // Cardio
         nameToID.put("run", R.drawable.run);
         // Descriptions
+        nameToID.put("hidden", android.R.color.transparent);
         nameToID.put("image_1", R.drawable.ic_looks_one_24px);
         nameToID.put("image_2", R.drawable.ic_looks_two_24px);
         nameToID.put("image_3", R.drawable.ic_looks_3_24px);

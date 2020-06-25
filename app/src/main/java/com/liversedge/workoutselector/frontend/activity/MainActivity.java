@@ -1,6 +1,7 @@
 package com.liversedge.workoutselector.frontend.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.liversedge.workoutselector.frontend.components.HorizontalWorkoutScrol
 import com.liversedge.workoutselector.frontend.components.IEventEnd;
 import com.liversedge.workoutselector.backend.firebase.WorkoutDAO;
 import com.hootsuite.nachos.NachoTextView;
+import com.liversedge.workoutselector.utils.AnimationHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,10 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     private HorizontalWorkoutScrollerView workoutScroller;
 
     // Button to change equipment
+    private ConstraintLayout optionsHolder;
+    private boolean optionsVisible = true;
     private Button chooseEquipmentButton;
+    private Button toggleOptionsButton;
 
     // Local SQL holding the settings
     private AppDatabase localDB;
@@ -64,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
         // Fetch the spinner object
         muscleGroupsView = (NachoTextView) findViewById(R.id.muscleGroupSelector);
 
+        // Fetch the options holder and button
+        optionsHolder = (ConstraintLayout) findViewById(R.id.optionsHolder);
+        toggleOptionsButton = (Button) findViewById(R.id.optionsButton);
+
         // Set the spin button listener
         spinButton = (Button) findViewById(R.id.spinButton);
         spinButton.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +83,29 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
 
                 // Show the scroller
                 workoutScroller.setVisibility(View.VISIBLE);
-                 
+
+                // Hide the options
+                if(optionsVisible) {
+                    // Animate the options out
+                    AnimationHandler.slide_up(optionsHolder);
+                    optionsVisible = false;
+                }
 
                 workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
                 spinButton.setEnabled(false);
+            }
+        });
+
+        // Set the options toggle button listener
+        toggleOptionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(optionsVisible) {
+                    AnimationHandler.slide_up(optionsHolder);
+                } else {
+                    AnimationHandler.slide_down(optionsHolder);
+                }
+                optionsVisible = !optionsVisible;
             }
         });
 

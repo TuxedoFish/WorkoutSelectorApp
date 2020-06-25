@@ -12,7 +12,7 @@ public class DescriptionItem implements WorkoutElement {
 
     @Override
     public String getName() {
-        return description;
+        return String.valueOf(id) + ") " + description;
     }
 
     @Override
@@ -22,6 +22,11 @@ public class DescriptionItem implements WorkoutElement {
 
     @Override
     public String getImageName() {
-        return "image_" + id;
+        return "hidden";
+    }
+
+    @Override
+    public Boolean shouldCenter() {
+        return true;
     }
 }

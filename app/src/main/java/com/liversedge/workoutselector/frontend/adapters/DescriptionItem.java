@@ -29,4 +29,9 @@ public class DescriptionItem implements WorkoutElement {
     public Boolean shouldCenter() {
         return true;
     }
+
+    @Override
+    public Integer getID() {
+        return id;
+    }
 }

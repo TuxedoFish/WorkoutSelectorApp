@@ -97,7 +97,8 @@ public class WorkoutView extends ConstraintLayout {
                         durationString,
                         exercise.isTimed(),
                         exercise.isHasEnding(),
-                        exercise.getEnding()
+                        exercise.getEnding(),
+                        exercise.getId()
                     )
                 );
             }
@@ -153,7 +154,7 @@ public class WorkoutView extends ConstraintLayout {
         exercises.setLayoutManager(exercisesLayoutManager);
 
         ArrayList<WorkoutElement> exerciseFakeList = new ArrayList<>();
-        exerciseFakeList.add(new ExerciseItem("Crunches", "5", false, false, "N/A"));
+        exerciseFakeList.add(new ExerciseItem("Crunches", "5", false, false, "N/A", -1));
 
         exercisesListAdapter = new ExerciseListAdapter(context, exerciseFakeList);
         exercises.setAdapter(exercisesListAdapter);

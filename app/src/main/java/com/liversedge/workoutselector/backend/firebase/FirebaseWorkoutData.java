@@ -144,7 +144,7 @@ public class FirebaseWorkoutData {
                     Boolean isTimed = (Boolean) e.get(EXERCISES_IS_TIMED);
 
                     Boolean hasEnding = false;
-                    String ending = "N/A";
+                    String ending = "Reps";
                     Integer duration = -1;
                     if(e.get(EXERCISES_DURATION_FIELD).getClass() == Long.class) {
                         // The data is an integer type

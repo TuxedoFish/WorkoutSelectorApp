@@ -17,4 +17,11 @@
     <string name="repetitions_placeholder">Repetitions</string>
     <string name="workout_by">Workout by,</string>
     <string name="no_text" />
+    <string name="example_exercise_name">Air Squats</string>
+    <string name="example_exercise_duration">5</string>
+    <string name="example_exercise_unit">Reps</string>
+    <string name="example_group_description">Repeat for 5 rounds</string>
+    <string name="example_author_name">Harry Liversedge</string>
+    <string name="example_equipment">No equipment needed</string>
+    <string name="example_time">5:30</string>
 </resources>

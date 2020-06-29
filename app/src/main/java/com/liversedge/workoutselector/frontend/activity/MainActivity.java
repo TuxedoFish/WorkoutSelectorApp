@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
 
         // Fetch the options holder and button
         optionsHolder = (ConstraintLayout) findViewById(R.id.optionsHolder);
-        toggleOptionsButton = (Button) findViewById(R.id.optionsButton);
+        toggleOptionsButton = (Button) findViewById(R.id.showVideoButton);
 
         // Set the spin button listener
         spinButton = (Button) findViewById(R.id.spinButton);

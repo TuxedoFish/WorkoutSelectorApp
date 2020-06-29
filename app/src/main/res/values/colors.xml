@@ -26,4 +26,5 @@
     <color name="settingColor6">#fecc26</color>
     <color name="settingColor7">#6a6c74</color>
     <color name="settingColor8">#000000</color>
+    <color name="textColorMid">#ccc</color>
 </resources>

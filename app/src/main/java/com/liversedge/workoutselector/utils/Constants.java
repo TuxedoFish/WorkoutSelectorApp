@@ -35,4 +35,7 @@ public class Constants {
     // Meta firebase fields
     public static String META_TARGET_FIELD = "groups";
     public static String META_EQUIPMENT_FIELD = "equipment";
+
+    // Keys for passing keys between activities
+    public static final String INTENT_EXERCISE_ID = "net.liversedge.cameratutorial.EXERCISE_ID";
 }

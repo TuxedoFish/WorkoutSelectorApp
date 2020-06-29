@@ -9,8 +9,8 @@ android {
         applicationId "com.liversedge.workoutselector"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2n"
 
         multiDexEnabled true
 
@@ -60,8 +60,13 @@ dependencies {
 //    api "com.google.firebase:firebase-perf:19.0.7"
 
     // Multidex support
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
 
     // Nacho view
     implementation "com.hootsuite.android:nachos:1.1.1"
+    implementation files('libs\\YouTubeAndroidPlayerApi.jar')
+
+    // Important native views
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

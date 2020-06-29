@@ -5,4 +5,5 @@ public interface WorkoutElement {
     String getDuration();
     String getImageName();
     Boolean shouldCenter();
+    Integer getID();
 }

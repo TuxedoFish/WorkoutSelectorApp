@@ -1,16 +1,23 @@
 package com.liversedge.workoutselector.frontend.adapters;
 
-public class ExerciseItem implements WorkoutElement{
+public class ExerciseItem implements WorkoutElement {
 
-    public String name, duration, ending;
-    public boolean isTimed, hasEnding;
+    private Integer ID;
+    private String name, duration, ending;
+    private boolean isTimed, hasEnding;
 
-    public ExerciseItem(String name, String duration, boolean isTimed, boolean hasEnding, String ending) {
+    public ExerciseItem(String name, String duration, boolean isTimed, boolean hasEnding,
+                        String ending, Integer ID) {
         this.name = name;
         this.duration = duration;
         this.isTimed = isTimed;
         this.hasEnding = hasEnding;
         this.ending = ending;
+        this.ID = ID;
+
+        if(this.ending.contains("N/A")) {
+            this.ending = "Reps";
+        }
     }
 
     private String convertToTime(String duration) {
@@ -54,5 +61,14 @@ public class ExerciseItem implements WorkoutElement{
     @Override
     public Boolean shouldCenter() {
         return false;
+    }
+
+    @Override
+    public Integer getID() {
+        return ID;
+    }
+
+    public String getEnding() {
+        return ending;
     }
 }

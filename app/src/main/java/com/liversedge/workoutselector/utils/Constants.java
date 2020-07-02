@@ -37,5 +37,7 @@ public class Constants {
     public static String META_EQUIPMENT_FIELD = "equipment";
 
     // Keys for passing keys between activities
+    public static final String INTENT_TIME_TAKEN = "net.liversedge.cameratutorial.TIME_TAKEN";
     public static final String INTENT_EXERCISE_ID = "net.liversedge.cameratutorial.EXERCISE_ID";
+    public static final String INTENT_WORKOUT_ID = "net.liversedge.cameratutorial.WORKOUT_ID";
 }

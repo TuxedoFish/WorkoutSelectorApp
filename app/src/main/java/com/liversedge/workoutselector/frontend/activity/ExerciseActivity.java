@@ -1,18 +1,13 @@
 package com.liversedge.workoutselector.frontend.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.liversedge.workoutselector.R;
@@ -24,6 +19,7 @@ import com.liversedge.workoutselector.backend.db.migrations.Migrations;
 import com.liversedge.workoutselector.frontend.adapters.ExerciseItem;
 import com.liversedge.workoutselector.frontend.videos.YoutubeVideoFragment;
 import com.liversedge.workoutselector.utils.ExerciseImageIds;
+import com.liversedge.workoutselector.utils.ImageHelper;
 
 import static com.liversedge.workoutselector.utils.Constants.INTENT_EXERCISE_ID;
 
@@ -66,9 +62,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
         // Create rounded author image
         // TODO: Get profile images
-        Bitmap authorSource = BitmapFactory.decodeResource(getResources(), R.drawable.lucaprofile);
-        RoundedBitmapDrawable authorDrawable = RoundedBitmapDrawableFactory.create(getResources(), authorSource);
-        authorDrawable.setCornerRadius(10);
+        RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(R.drawable.lucaprofile, 10, this);
 
         // Get the video ID
         exerciseImageIds = new ExerciseImageIds();
@@ -90,9 +84,9 @@ public class ExerciseActivity extends AppCompatActivity {
                 .replace(R.id.exerciseInstructionVideo, youtubeFragment).commit();
 
         // Get the UI Elements
-        exerciseNameText = findViewById(R.id.exerciseNameTextView);
-        exerciseDurationText = findViewById(R.id.exerciseDurationTextView);
-        exerciseDurationUnitText = findViewById(R.id.exerciseDurationUnitsTextView);
+        exerciseNameText = findViewById(R.id.timeElapsedDescription);
+        exerciseDurationText = findViewById(R.id.workoutCurrentTime);
+        exerciseDurationUnitText = findViewById(R.id.exerciseLengthUnitText);
         authorNameText = findViewById(R.id.authorName);
         equipmentText = findViewById(R.id.equipmentText);
         authorImage = findViewById(R.id.authorImageView);

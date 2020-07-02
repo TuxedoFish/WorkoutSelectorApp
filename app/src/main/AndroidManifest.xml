@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.liversedge.workoutselector">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".frontend.activity.ExerciseActivity"></activity>
+        <activity android:name=".frontend.activity.FinishedWorkoutActivity"></activity>
+        <activity android:name=".frontend.activity.WorkoutActivity" />
+        <activity android:name=".frontend.activity.ExerciseActivity" />
         <activity android:name=".frontend.activity.SettingsActivity" />
         <activity android:name=".frontend.activity.MainActivity">
             <intent-filter>

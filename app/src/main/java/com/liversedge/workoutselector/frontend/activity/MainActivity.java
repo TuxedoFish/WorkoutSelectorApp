@@ -33,6 +33,8 @@ import java.util.Random;
 import static com.liversedge.workoutselector.utils.Constants.DEBUGGING;
 import static com.liversedge.workoutselector.utils.Constants.DEBUG_TAG;
 import static com.liversedge.workoutselector.utils.Constants.FORCE_RELOAD;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_EXERCISE_ID;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
 
 public class MainActivity extends AppCompatActivity implements IEventEnd, FirebaseWorkoutLoader {
 
@@ -46,8 +48,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     // Button to change equipment
     private ConstraintLayout optionsHolder;
     private boolean optionsVisible = true;
-    private Button chooseEquipmentButton;
-    private Button toggleOptionsButton;
+    private Button chooseEquipmentButton, toggleOptionsButton, startWorkoutButton;
 
     // Local SQL holding the settings
     private AppDatabase localDB;
@@ -55,12 +56,31 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     // Nacho type views for the muscle group
     private NachoTextView muscleGroupsView;
 
-    //nachoTextView.setAdapter(adapter);
+    // Current state
+    private ArrayList<WorkoutDAO> workouts;
+    private int workoutID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get the start workout button
+        startWorkoutButton = findViewById(R.id.startWorkoutButton);
+        startWorkoutButton.setVisibility(View.GONE);
+
+        startWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+                // Pass in information about the current workout and exercises
+                intent.putExtra(INTENT_WORKOUT_ID, workoutID);
+
+                startActivity(intent);
+            }
+        });
 
         // Get the workout scroller view
         workoutScroller = (HorizontalWorkoutScrollerView) findViewById(R.id.horizontalSpinner);
@@ -81,8 +101,9 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
                 // Update the scroller
                 updateScroller();
 
-                // Show the scroller
+                // Show the scroller and button
                 workoutScroller.setVisibility(View.VISIBLE);
+                startWorkoutButton.setVisibility(View.VISIBLE);
 
                 // Hide the options
                 if(optionsVisible) {
@@ -167,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
 
         // Get the workouts filtered out
         List<WorkoutTable> workoutTables = localDB.appDao().getAllWorkouts();
-        ArrayList<WorkoutDAO> workouts = new ArrayList<>();
+        workouts = new ArrayList<>();
 
         // Convert these to the access objects from the SQL
         for(int i=0; i<workoutTables.size(); i++) {
@@ -273,6 +294,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     public void eventEnd(int result, int count) {
         // When the spinning ends
         spinButton.setEnabled(true);
+        workoutID = workouts.get(result).getWorkoutID();
     }
 
     @Override

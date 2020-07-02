@@ -13,8 +13,13 @@ public class AnimationHandler {
 
     private static long ANIMATION_DUR = 200;
 
-    public static void slide_down(final View v){
+    public static void slide_down(final View v) {
+        slide_down(v, 1);
+    }
 
+    public static void slide_down(final View v, final float proportion){
+
+        v.setTranslationY(-(v.getHeight()*proportion));
         v.setVisibility(View.VISIBLE);
         v.animate()
                 .translationY(0)
@@ -28,8 +33,15 @@ public class AnimationHandler {
     }
 
     public static void slide_up(final View v) {
+        slide_up(v, 1);
+    }
+
+    public static void slide_up(final View v, final float proportion) {
+
+        v.setVisibility(View.VISIBLE);
+        v.setTranslationY(0);
         v.animate()
-                .translationY(-v.getHeight())
+                .translationY(-(v.getHeight()*proportion))
                 .setDuration(ANIMATION_DUR)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override

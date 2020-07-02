@@ -11,6 +11,7 @@ public class WorkoutDAO {
     private String title, author, author_url;
     private ArrayList<ExerciseGroupDAO> exerciseGroups = new ArrayList<>();
     private List<String> equipmentTags, areaTags;
+    private int workoutID;
 
     public WorkoutDAO(final String title, final String author, final String author_url,
                       List<String> equipmentTags, List<String> areaTags,
@@ -20,6 +21,7 @@ public class WorkoutDAO {
         this.author_url = author_url;
         this.equipmentTags = equipmentTags;
         this.areaTags = areaTags;
+        this.workoutID = workout_id;
 
         // Grab the exercise groups
         if(db != null) {
@@ -71,5 +73,9 @@ public class WorkoutDAO {
 
     public void setExerciseGroups(ArrayList<ExerciseGroupDAO> exerciseGroups) {
         this.exerciseGroups = exerciseGroups;
+    }
+
+    public int getWorkoutID() {
+        return workoutID;
     }
 }

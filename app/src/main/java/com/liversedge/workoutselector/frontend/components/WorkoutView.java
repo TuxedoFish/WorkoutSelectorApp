@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -23,6 +24,7 @@ import com.liversedge.workoutselector.frontend.adapters.DescriptionItem;
 import com.liversedge.workoutselector.frontend.adapters.ExerciseItem;
 import com.liversedge.workoutselector.frontend.adapters.ExerciseListAdapter;
 import com.liversedge.workoutselector.frontend.adapters.WorkoutElement;
+import com.liversedge.workoutselector.utils.ExerciseImageIds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class WorkoutView extends ConstraintLayout {
 
     // Text components
     private TextView authorText;
+    private ImageView authorImage;
 
     // List of exercises
     private RecyclerView exercises;
@@ -39,10 +42,12 @@ public class WorkoutView extends ConstraintLayout {
     private ConstraintLayout authorLabel;
 
     // Saved for updates
-    Context context;
+    private Context context;
+    private ExerciseImageIds exerciseImageIds;
 
     public WorkoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        exerciseImageIds = new ExerciseImageIds();
         init(context, attrs);
     }
 
@@ -144,6 +149,7 @@ public class WorkoutView extends ConstraintLayout {
         authorText = (TextView) findViewById(R.id.authorText);
         exercises = (RecyclerView) findViewById(R.id.exercisesList);
         authorLabel = (ConstraintLayout) findViewById(R.id.descriptionTitle);
+        authorImage = (ImageView) findViewById(R.id.authorImage);
 
 //        exercises.setNestedScrollingEnabled(false);
         initExercisesList();
@@ -166,6 +172,7 @@ public class WorkoutView extends ConstraintLayout {
             if (!author.toString().equals("")) {
                 authorText.setText(author);
                 exercises.setVisibility(View.VISIBLE);
+                authorImage.setImageDrawable(context.getResources().getDrawable(exerciseImageIds.getAuthorImage(author.toString())));
             } else {
 //                authorText.setVisibility(View.GONE);
                 exercises.setVisibility(View.GONE);

@@ -1,5 +1,7 @@
 package com.liversedge.workoutselector.utils;
 
+import android.graphics.drawable.Drawable;
+
 import com.liversedge.workoutselector.R;
 
 import java.util.HashMap;
@@ -9,7 +11,9 @@ public class ExerciseImageIds {
 
     Map<String, Integer> nameToImageID = new HashMap<>();
     Map<String, String> nameToVideoID = new HashMap<>();
+    Map<String, Integer> nameToAuthorID = new HashMap<>();
     int defaultImageID = R.drawable.ic_info_24px;
+    int defaultAuthorID = R.drawable.ic_face_24px;
     String defaultVideoID = "";
 
     public ExerciseImageIds() {
@@ -146,6 +150,13 @@ public class ExerciseImageIds {
         nameToVideoID.put("tricep dip", "XXvuYGCxpkk");
         nameToVideoID.put("v-crunch", "5UNy8HdV6jE"); // t=11
         nameToVideoID.put("wall walk", "JsGNOjxsu9A");
+
+        /**
+         * Fitness authors
+         */
+        nameToAuthorID.put("luca feser", R.drawable.lucaprofile);
+        nameToAuthorID.put("brani keckes", R.drawable.brani);
+        nameToAuthorID.put("harriot whelan", R.drawable.hariot);
     }
 
     public String getVideoByExerciseName(String name) {
@@ -262,5 +273,10 @@ public class ExerciseImageIds {
         }
 
         return null;
+    }
+
+    public Integer getAuthorImage(String author) {
+        Integer resourceID = nameToAuthorID.get(author.toLowerCase());
+        return resourceID != null ? resourceID : defaultAuthorID;
     }
 }

@@ -1,11 +1,14 @@
 package com.liversedge.workoutselector.frontend.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
@@ -20,11 +23,13 @@ import com.liversedge.workoutselector.R;
 import com.liversedge.workoutselector.backend.db.databases.AppDatabase;
 import com.liversedge.workoutselector.backend.db.entities.Exercise;
 import com.liversedge.workoutselector.backend.db.entities.ExerciseGroupTable;
+import com.liversedge.workoutselector.backend.db.entities.WorkoutTable;
 import com.liversedge.workoutselector.backend.db.migrations.Migrations;
 import com.liversedge.workoutselector.frontend.adapters.workout.DescriptionExerciseItem;
 import com.liversedge.workoutselector.frontend.adapters.workout.IWorkoutExercise;
 import com.liversedge.workoutselector.frontend.adapters.workout.WorkoutExerciseAdapter;
 import com.liversedge.workoutselector.frontend.adapters.workout.WorkoutExerciseItem;
+import com.liversedge.workoutselector.utils.ExerciseImageIds;
 import com.liversedge.workoutselector.utils.ImageHelper;
 import com.liversedge.workoutselector.utils.TimeFormatter;
 
@@ -41,12 +46,16 @@ import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
 public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     // UI elements
+    private TextView authorName;
     private ImageView authorImage;
+    private ConstraintLayout authorContainerView;
+    private ExerciseImageIds exerciseImageIds;
 
     // Exercises view
     private RecyclerView exercisesView;
     private WorkoutExerciseAdapter workoutExerciseAdapter;
     private List<Exercise> exercises;
+    private WorkoutTable workout;
     private Button pauseExerciseButton, stopWorkoutButton;
     private TextView timeElapsedDescription, workoutCurrentTime;
 
@@ -102,13 +111,38 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
         // Gets the exercise information
         Intent intent = getIntent();
         Integer workoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
+        workout = localDB.appDao().getWorkoutByID(workoutID).get(0);
         exercises = localDB.appDao().getExercisesByWorkoutID(workoutID);
 
         // Create rounded author image
-        // TODO: Get profile images
-        RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(R.drawable.lucaprofile, 10, this);
+        exerciseImageIds = new ExerciseImageIds();
+        Integer authorImageID = exerciseImageIds.getAuthorImage(workout.author);
+        RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(authorImageID, 10, this);
         authorImage = findViewById(R.id.authorImageView);
         setAuthorImage(authorDrawable);
+
+        // Set author text
+        authorName = findViewById(R.id.authorName);
+        authorName.setText(workout.author);
+
+        // Set link to instagram up
+        authorContainerView = findViewById(R.id.authorContainerView);
+        authorContainerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri uri = Uri.parse(workout.authorURL);
+                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                likeIng.setPackage("com.instagram.android");
+
+                try {
+                    startActivity(likeIng);
+                } catch (ActivityNotFoundException e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://instagram.com/xxx")));
+                }
+            }
+        });
 
         // Set up workout view
         ArrayList<IWorkoutExercise> exerciseItems = new ArrayList<>();

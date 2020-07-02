@@ -11,35 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="932b6faa-72a2-4013-ae8a-4ea614a3fb6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/FinishedWorkoutActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/DescriptionExerciseItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/IWorkoutExercise.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ImageHelper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/TimeFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/highlight_card.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_pause_24px.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_stop_24px.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_finished_workout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_workout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/brani.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hariot.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/backend/db/queries/AppDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/backend/db/queries/AppDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/backend/firebase/WorkoutDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/backend/firebase/WorkoutDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/ExerciseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/ExerciseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/AnimationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/AnimationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/WorkoutView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/WorkoutView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ExerciseImageIds.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ExerciseImageIds.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercise.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercise.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_workout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_workout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item_large.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item_large.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/workout_description.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/workout_description.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -285,7 +267,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java</url>
-          <line>258</line>
+          <line>292</line>
           <option name="timeStamp" value="81" />
         </line-breakpoint>
       </breakpoints>

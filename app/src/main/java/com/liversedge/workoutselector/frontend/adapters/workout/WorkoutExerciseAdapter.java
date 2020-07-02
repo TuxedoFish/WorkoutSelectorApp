@@ -169,7 +169,7 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             timeTakenTextView = (TextView) v.findViewById(R.id.exerciseDuration);
             groupDescriptionTextView = (TextView) v.findViewById(R.id.titleDescriptionText);
             exerciseViewHolder = (ConstraintLayout) v.findViewById(R.id.exerciseViewHolder);
-            exerciseTimerView = (ConstraintLayout) v.findViewById(R.id.exerciseTimerView);
+            exerciseTimerView = (ConstraintLayout) v.findViewById(R.id.authorContainerView);
         }
     }
 

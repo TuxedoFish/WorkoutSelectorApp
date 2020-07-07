@@ -7,53 +7,55 @@
     tools:context=".frontend.activity.SettingsActivity"
     >
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/auxilliary_page_app_bar"
+                app:navigationIcon="@drawable/ic_keyboard_backspace_24px"
+                app:title="@string/page_equipment_title"
+                app:titleTextColor="@color/textColorLight" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/colorBackground"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorBackground">
+        app:layout_constraintTop_toBottomOf="@+id/coordinatorLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="40dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/dark_card">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/equipmentAvailable"
-                    android:textColor="@color/textColorLight"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            android:paddingBottom="40dp">
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/settingsList"
-                android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_marginTop="8dp"
-                android:padding="10dp"
-                android:background="@drawable/card"
-                android:orientation="vertical" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:scrollbars="vertical" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -63,18 +65,18 @@
                 <Button
                     android:id="@+id/confirmButton"
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:layout_width="240dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="24dp"
                     android:paddingTop="12dp"
                     android:paddingBottom="12dp"
                     android:text="@string/confirm_button"
                     android:textAllCaps="false"
                     android:textColor="@color/textColorLight"
-                    android:textSize="18sp"
-                    app:cornerRadius="10dp"
-                    app:icon="@drawable/ic_fitness_center_24px"
-                    app:iconTint="@color/textColorLight"
+                    android:textSize="14sp"
+                    app:cornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/targetMuscleField"

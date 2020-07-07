@@ -12,7 +12,8 @@ public class DescriptionItem implements WorkoutElement {
 
     @Override
     public String getName() {
-        return String.valueOf(id) + ") " + description;
+//        return String.valueOf(id) + ") " + description;
+        return description;
     }
 
     @Override

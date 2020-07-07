@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ import com.liversedge.workoutselector.frontend.adapters.ExerciseItem;
 import com.liversedge.workoutselector.frontend.adapters.ExerciseListAdapter;
 import com.liversedge.workoutselector.frontend.adapters.WorkoutElement;
 import com.liversedge.workoutselector.utils.ExerciseImageIds;
+import com.liversedge.workoutselector.utils.ImageHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ import java.util.List;
 public class WorkoutView extends ConstraintLayout {
 
     // Text components
-    private TextView authorText;
+    private TextView authorText, authorDescription;
     private ImageView authorImage;
 
     // List of exercises
@@ -44,6 +46,7 @@ public class WorkoutView extends ConstraintLayout {
     // Saved for updates
     private Context context;
     private ExerciseImageIds exerciseImageIds;
+    private int workoutID;
 
     public WorkoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -71,6 +74,9 @@ public class WorkoutView extends ConstraintLayout {
 
     // Updates the adapter
     public void update(final WorkoutDAO workout) {
+
+        // Update the ID
+        this.workoutID = workout.getWorkoutID();
 
         // Make the list with the size
         List<ExerciseGroupDAO> groups = workout.getExerciseGroups();
@@ -110,7 +116,7 @@ public class WorkoutView extends ConstraintLayout {
         }
 
         // Set up the exercises
-        exercisesListAdapter = new ExerciseListAdapter(context, displayItems);
+        exercisesListAdapter = new ExerciseListAdapter(context, displayItems, workoutID);
         exercises.setAdapter(exercisesListAdapter);
 
         // Change the author name
@@ -150,6 +156,7 @@ public class WorkoutView extends ConstraintLayout {
         exercises = (RecyclerView) findViewById(R.id.exercisesList);
         authorLabel = (ConstraintLayout) findViewById(R.id.descriptionTitle);
         authorImage = (ImageView) findViewById(R.id.authorImage);
+        authorDescription = (TextView) findViewById(R.id.workoutByDescriptionText);
 
 //        exercises.setNestedScrollingEnabled(false);
         initExercisesList();
@@ -162,7 +169,7 @@ public class WorkoutView extends ConstraintLayout {
         ArrayList<WorkoutElement> exerciseFakeList = new ArrayList<>();
         exerciseFakeList.add(new ExerciseItem("Crunches", "5", false, false, "N/A", -1));
 
-        exercisesListAdapter = new ExerciseListAdapter(context, exerciseFakeList);
+        exercisesListAdapter = new ExerciseListAdapter(context, exerciseFakeList, workoutID);
         exercises.setAdapter(exercisesListAdapter);
 
     }
@@ -171,8 +178,11 @@ public class WorkoutView extends ConstraintLayout {
         if(author != null) {
             if (!author.toString().equals("")) {
                 authorText.setText(author);
+                authorDescription.setText(context.getResources().getText(R.string.workout_by));
                 exercises.setVisibility(View.VISIBLE);
-                authorImage.setImageDrawable(context.getResources().getDrawable(exerciseImageIds.getAuthorImage(author.toString())));
+
+                RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(exerciseImageIds.getAuthorImage(author.toString()), 100, context);
+                authorImage.setImageDrawable(authorDrawable);
             } else {
 //                authorText.setVisibility(View.GONE);
                 exercises.setVisibility(View.GONE);

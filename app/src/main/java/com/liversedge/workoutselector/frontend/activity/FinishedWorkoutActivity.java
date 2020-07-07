@@ -3,9 +3,11 @@ package com.liversedge.workoutselector.frontend.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liversedge.workoutselector.R;
@@ -17,8 +19,9 @@ import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
 public class FinishedWorkoutActivity extends AppCompatActivity {
 
     // UI components
-    TextView timeTakenText;
-    Button returnHomeButton;
+    private TextView timeTakenText;
+    private Button returnHomeButton;
+    private ImageView completeImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,5 +47,9 @@ public class FinishedWorkoutActivity extends AppCompatActivity {
                 startActivity(toHome);
             }
         });
+
+        // Set the image
+        completeImageView = (ImageView) findViewById(R.id.completeImageView);
+        completeImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_fitnessdrawing));
     }
 }

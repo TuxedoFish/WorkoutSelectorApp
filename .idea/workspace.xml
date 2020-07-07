@@ -11,17 +11,90 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="932b6faa-72a2-4013-ae8a-4ea614a3fb6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/brani.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hariot.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/barbellclean.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/barbellfrontsquat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/barbellglutebridge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/barbellpushpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_half_card.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/butterflysitup.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/chinup.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/clean.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cossacksquat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/devilpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dip.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/doubleunder.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellbenchpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellglutebridge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellgobletsquat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbelllunge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellmanmaker.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellpushpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellrenegaderow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellromaniandeadlift.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellsinglearmsnatch.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellsquatclean.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellsquats.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/dumbellthruster.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/fitnessimage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/floorlyingdumbellchestpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/handstandpushup.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hangpowerclean.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/hollowhold.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_filter_alt_24px.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_fitnessdrawing.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_keyboard_backspace_24px.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_navigate_next_24px.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/invertedrow.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/jumpingsquat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/kettlebellgobletsquat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/kettlebellswing.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/plategroundtooverhead.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/reverselunge.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/singlearmdumbellpushpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/singlearmdumbellsnatch.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/singlelegvsitup.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/singleskip.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/stepoverbox.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/stretchcrunch.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/strictshoulderpress.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sumosquatuprightrow.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/toestobar.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/vcrunch.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/wallwalk.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/auxilliary_page_app_bar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/top_app_bar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.aab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/ExerciseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/ExerciseActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/FinishedWorkoutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/FinishedWorkoutActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/SettingsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/SettingsActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/DescriptionItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/DescriptionItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/ExerciseListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/ExerciseListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/SettingsListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/SettingsListAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/adapters/workout/WorkoutExerciseAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/HorizontalWorkoutScrollerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/HorizontalWorkoutScrollerView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/WorkoutView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/components/WorkoutView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ExerciseImageIds.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ExerciseImageIds.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ImageHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/ImageHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/TimeFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/utils/TimeFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercise.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercise.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_finished_workout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_finished_workout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_workout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_workout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item_large.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/exercise_item_large.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_setting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_setting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/workout_description.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/workout_description.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,10 +124,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="valueResourceFile" />
-        <option value="resourceFile" />
         <option value="layoutResourceFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -72,13 +145,13 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="BundleExportedModule" value="app" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_5_API_24_2" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-06-25T08:28:51.727Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="RF8M229KBMM" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-07-07T14:18:56.536Z" />
     <property name="ExportApk.ApkPath" value="C:\dev\WorkoutSelector\app" />
     <property name="ExportApk.BuildVariants" value="release" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Mepidemics/CoronawareAndroid" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/drawable" />
     <property name="project.structure.last.edited" value="Dependencies" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -106,10 +179,10 @@
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\dev\WorkoutSelector\app\src\main\res\drawable" />
+      <recent name="C:\dev\WorkoutSelector\app\src\main\res\menu" />
       <recent name="C:\dev\WorkoutSelector\app\libs" />
       <recent name="C:\dev\WorkoutSelector\app\src\main\res\anim" />
       <recent name="C:\dev\WorkoutSelector\app" />
-      <recent name="C:\dev\WorkoutSelector\app\src\main\java\com\example\workoutselector\backend" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.workoutselector.backend.db.entities" />
@@ -267,8 +340,43 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/WorkoutActivity.java</url>
-          <line>292</line>
+          <line>270</line>
           <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java</url>
+          <line>151</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java</url>
+          <line>152</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java</url>
+          <line>149</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/SettingsActivity.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/SettingsActivity.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/MainActivity.java</url>
+          <line>176</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/liversedge/workoutselector/frontend/activity/SettingsActivity.java</url>
+          <line>59</line>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

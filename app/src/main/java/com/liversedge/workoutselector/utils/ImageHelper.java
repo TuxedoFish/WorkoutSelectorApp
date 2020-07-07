@@ -13,9 +13,9 @@ public class ImageHelper {
 
     public static RoundedBitmapDrawable getRoundedImage(Integer resourceID, Integer cornerRadius, Context context) {
 
-        Bitmap authorSource = BitmapFactory.decodeResource(context.getResources(), R.drawable.lucaprofile);
+        Bitmap authorSource = BitmapFactory.decodeResource(context.getResources(), resourceID);
         RoundedBitmapDrawable authorDrawable = RoundedBitmapDrawableFactory.create(context.getResources(), authorSource);
-        authorDrawable.setCornerRadius(10);
+        authorDrawable.setCornerRadius(cornerRadius);
 
         return authorDrawable;
 

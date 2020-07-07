@@ -46,6 +46,13 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
     public void setListOfExercises(ArrayList<WorkoutDAO> workouts) {
         this.workouts = workouts;
         this.NUMBER_OF_VIEWS = workouts.size();
+
+
+        // Found the workout
+        last_result = 0;
+        old_value = 0;
+        current_view.setVisibility(View.GONE);
+        setView(next_view, 0);
     }
 
     private void init(Context context) {
@@ -111,5 +118,31 @@ public class HorizontalWorkoutScrollerView extends FrameLayout {
 
     public int getNumberOfWorkouts() {
         return NUMBER_OF_VIEWS;
+    }
+
+    public boolean setValueFixedWorkoutID(Integer workoutID) {
+
+        boolean hasFound = false;
+        int index = -1;
+
+        // First find the workout
+        for(int i=0; i<workouts.size(); i++) {
+            if(workouts.get(i).getWorkoutID() == workoutID) {
+                index = i;
+                hasFound = true;
+            }
+        }
+
+        if(hasFound) {
+            // Found the workout
+            last_result = 0;
+            old_value = 0;
+            current_view.setVisibility(View.GONE);
+            setView(next_view, index);
+            eventEnd.eventEnd(index, 1);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

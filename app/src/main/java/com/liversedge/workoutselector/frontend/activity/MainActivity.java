@@ -1,6 +1,7 @@
 package com.liversedge.workoutselector.frontend.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
@@ -8,10 +9,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.liversedge.workoutselector.R;
 import com.liversedge.workoutselector.backend.db.databases.AppDatabase;
 import com.liversedge.workoutselector.backend.db.entities.GroupTable;
@@ -35,6 +38,7 @@ import static com.liversedge.workoutselector.utils.Constants.DEBUG_TAG;
 import static com.liversedge.workoutselector.utils.Constants.FORCE_RELOAD;
 import static com.liversedge.workoutselector.utils.Constants.INTENT_EXERCISE_ID;
 import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID_IS_PRESENT;
 
 public class MainActivity extends AppCompatActivity implements IEventEnd, FirebaseWorkoutLoader {
 
@@ -60,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     private ArrayList<WorkoutDAO> workouts;
     private int workoutID;
 
+    // Top app bar
+    MaterialToolbar topAppBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, WorkoutActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 
                 // Pass in information about the current workout and exercises
                 intent.putExtra(INTENT_WORKOUT_ID, workoutID);
@@ -85,61 +91,6 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
         // Get the workout scroller view
         workoutScroller = (HorizontalWorkoutScrollerView) findViewById(R.id.horizontalSpinner);
         workoutScroller.setEventEnd(this);
-
-        // Fetch the spinner object
-        muscleGroupsView = (NachoTextView) findViewById(R.id.muscleGroupSelector);
-
-        // Fetch the options holder and button
-        optionsHolder = (ConstraintLayout) findViewById(R.id.optionsHolder);
-        toggleOptionsButton = (Button) findViewById(R.id.showVideoButton);
-
-        // Set the spin button listener
-        spinButton = (Button) findViewById(R.id.spinButton);
-        spinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Update the scroller
-                updateScroller();
-
-                // Show the scroller and button
-                workoutScroller.setVisibility(View.VISIBLE);
-                startWorkoutButton.setVisibility(View.VISIBLE);
-
-                // Hide the options
-                if(optionsVisible) {
-                    // Animate the options out
-                    AnimationHandler.slide_up(optionsHolder);
-                    optionsVisible = false;
-                }
-
-                workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
-                spinButton.setEnabled(false);
-            }
-        });
-
-        // Set the options toggle button listener
-        toggleOptionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(optionsVisible) {
-                    AnimationHandler.slide_up(optionsHolder);
-                } else {
-                    AnimationHandler.slide_down(optionsHolder);
-                }
-                optionsVisible = !optionsVisible;
-            }
-        });
-
-        // Set the choose equipment button up
-        chooseEquipmentButton = (Button) findViewById(R.id.selectEquipmentButton);
-        chooseEquipmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent toChangeEquipment = new Intent(MainActivity.this, SettingsActivity.class);
-                toChangeEquipment.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(toChangeEquipment);
-            }
-        });
 
         // Get an instance of the SQL tables
         localDB = Migrations.getInstance(this).db;
@@ -168,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
             FirebaseWorkoutData.loadTargetAreas(this);
         } else {
             List<GroupTable> groups = localDB.appDao().getGroups();
-            updateGroupTags(groups);
+//            updateGroupTags(groups);
         }
 
         // Load the equipment list from firebase
@@ -182,6 +133,59 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
 
         // Hide the exercise view
         workoutScroller.setVisibility(View.GONE);
+
+        // Whether or not to return to workout I was last on
+        Intent intent = getIntent();
+        boolean shouldReturn = intent.getBooleanExtra(INTENT_WORKOUT_ID_IS_PRESENT, false);
+        Integer intentWorkoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
+
+        // Update the list of workouts
+        updateScroller();
+
+        // Show the scroller and button
+        workoutScroller.setVisibility(View.VISIBLE);
+        startWorkoutButton.setVisibility(View.VISIBLE);
+
+        // Spin the workouts
+        if(shouldReturn) {
+            // Attempt to set it to the workout id and if that doesn't work then re-spin
+            if(!workoutScroller.setValueFixedWorkoutID(intentWorkoutID)) {
+                workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
+            }
+        } else {
+            workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
+        }
+
+        // Set up the top navigation bar
+        topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
+//        topAppBar.setNavigationOnClickListener {
+//            // Handle navigation icon press
+//        }
+//
+        topAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+             @Override
+             public boolean onMenuItemClick(MenuItem item) {
+                 switch(item.getItemId()) {
+                     case R.id.search:
+                         // Select a new random workout
+                         workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
+                         return true;
+
+                     case R.id.equipment:
+                         // Move to equipment page
+                         Intent toChangeEquipment = new Intent(MainActivity.this, SettingsActivity.class);
+                         toChangeEquipment.putExtra(INTENT_WORKOUT_ID, workoutID);
+                         startActivity(toChangeEquipment);
+                         return true;
+
+//                     case R.id.filter:
+//                         // TODO: Create filter screen
+//                         return true;
+                 }
+
+                 return false;
+             }
+        });
     }
 
     private void updateScroller() {
@@ -247,16 +251,16 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
 
         // Filter out equipment which does not contain any of the
         // tags we have put in
-        List<String> tags = muscleGroupsView.getChipValues();
-        boolean containsTag = false;
-
-        for(int i=0; i< workout.areaTags.size(); i++) {
-            String area =  workout.areaTags.get(i).toLowerCase();
-            containsTag = containsTag | tags.contains(area);
-        }
+//        List<String> tags = muscleGroupsView.getChipValues();
+//        boolean containsTag = false;
+//
+//        for(int i=0; i< workout.areaTags.size(); i++) {
+//            String area =  workout.areaTags.get(i).toLowerCase();
+//            containsTag = containsTag | tags.contains(area);
+//        }
 
         // If it passes all these tests then return true
-        return containsTag;
+        return true;
     }
 
     /**
@@ -293,7 +297,7 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     @Override
     public void eventEnd(int result, int count) {
         // When the spinning ends
-        spinButton.setEnabled(true);
+//        spinButton.setEnabled(true);
         workoutID = workouts.get(result).getWorkoutID();
     }
 

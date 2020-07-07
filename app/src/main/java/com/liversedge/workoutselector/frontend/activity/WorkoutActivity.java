@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.liversedge.workoutselector.R;
 import com.liversedge.workoutselector.backend.db.databases.AppDatabase;
 import com.liversedge.workoutselector.backend.db.entities.Exercise;
@@ -42,13 +43,11 @@ import java.util.TimerTask;
 import static com.liversedge.workoutselector.utils.Constants.DEBUG_TAG;
 import static com.liversedge.workoutselector.utils.Constants.INTENT_TIME_TAKEN;
 import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID_IS_PRESENT;
 
 public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     // UI elements
-    private TextView authorName;
-    private ImageView authorImage;
-    private ConstraintLayout authorContainerView;
     private ExerciseImageIds exerciseImageIds;
 
     // Exercises view
@@ -57,7 +56,6 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
     private List<Exercise> exercises;
     private WorkoutTable workout;
     private Button pauseExerciseButton, stopWorkoutButton;
-    private TextView timeElapsedDescription, workoutCurrentTime;
 
     // SQL Database
     private AppDatabase localDB;
@@ -72,6 +70,10 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
     // Text to speech stuff
     private TextToSpeech mTts;
     private static final int MY_DATA_CHECK_CODE = 1005;
+
+    // Top app bar
+    private MaterialToolbar topAppBar;
+    private String prefix = "Start in: ";
 
     protected void onActivityResult(
             int requestCode, int resultCode, Intent data) {
@@ -110,37 +112,20 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
 
         // Gets the exercise information
         Intent intent = getIntent();
-        Integer workoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
+        final Integer workoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
         workout = localDB.appDao().getWorkoutByID(workoutID).get(0);
         exercises = localDB.appDao().getExercisesByWorkoutID(workoutID);
 
-        // Create rounded author image
-        exerciseImageIds = new ExerciseImageIds();
-        Integer authorImageID = exerciseImageIds.getAuthorImage(workout.author);
-        RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(authorImageID, 10, this);
-        authorImage = findViewById(R.id.authorImageView);
-        setAuthorImage(authorDrawable);
-
-        // Set author text
-        authorName = findViewById(R.id.authorName);
-        authorName.setText(workout.author);
-
-        // Set link to instagram up
-        authorContainerView = findViewById(R.id.authorContainerView);
-        authorContainerView.setOnClickListener(new View.OnClickListener() {
+        // Find the top app bar
+        topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri uri = Uri.parse(workout.authorURL);
-                Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-                likeIng.setPackage("com.instagram.android");
-
-                try {
-                    startActivity(likeIng);
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://instagram.com/xxx")));
-                }
+                // Navigate to home again
+                Intent toHome = new Intent(WorkoutActivity.this, MainActivity.class);
+                toHome.putExtra(INTENT_WORKOUT_ID, workoutID);
+                toHome.putExtra(INTENT_WORKOUT_ID_IS_PRESENT, true);
+                startActivity(toHome);
             }
         });
 
@@ -163,10 +148,6 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
             exerciseItems.add(newExerciseItem);
         }
 
-        // Text views for timing the overall workout
-        timeElapsedDescription = findViewById(R.id.timeElapsedDescription);
-        workoutCurrentTime = findViewById(R.id.workoutCurrentTime);
-
         // Setting up the list of exercises
         exercisesView = findViewById(R.id.workoutExerciseHolder);
         workoutExerciseAdapter = new WorkoutExerciseAdapter(this, getSupportFragmentManager(),
@@ -186,9 +167,6 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
         exercisesView.setLayoutManager(exercisesLayoutManager);
         // Attach the adapter
         exercisesView.setAdapter(workoutExerciseAdapter);
-
-        // Start countdown timer
-        timeElapsedDescription.setText(R.string.countdown_description);
 
         // Next exercise button
         pauseExerciseButton = findViewById(R.id.pauseExerciseButton);
@@ -275,9 +253,9 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
                         exercises.get(0).duration + " seconds";
 
                 mTts.speak(instruction, TextToSpeech.QUEUE_ADD, null);
-                timeElapsedDescription.setText(R.string.workout_time_remaining);
+                prefix = "Time remaining: ";
             } else {
-                timeElapsedDescription.setText(R.string.workout_time_elapsed_description);
+                prefix = "Time elapsed: ";
             }
 
             hasStarted = true;
@@ -302,13 +280,11 @@ public class WorkoutActivity extends AppCompatActivity implements TextToSpeech.O
 
         // Update the timer
         if(workoutExerciseAdapter.isTimedWorkout() && hasStarted) {
-            workoutCurrentTime.setText(TimeFormatter.convertMilliSecondsToString(workoutExerciseAdapter.getTimeRemaining()));
+            topAppBar.setTitle(prefix + TimeFormatter.convertMilliSecondsToString(workoutExerciseAdapter.getTimeRemaining()));
         } else {
-            workoutCurrentTime.setText(TimeFormatter.convertMilliSecondsToString(currentTime));
+            topAppBar.setTitle(prefix + TimeFormatter.convertMilliSecondsToString(currentTime));
         }
     }
-
-    private void setAuthorImage(RoundedBitmapDrawable drawable) { authorImage.setImageDrawable(drawable); }
 
     @Override
     public void onInit(int i) {

@@ -82,7 +82,10 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         String text = setting.getText();
         boolean state = setting.isState();
 
-        holder.settingText.setText(text);
+        // Capitalize first letter
+        String cap = text.substring(0, 1).toUpperCase() + text.substring(1);
+
+        holder.settingText.setText(cap);
         holder.settingSwitch.setChecked(state);
 
         // Make sure we update the model if the user taps the switch

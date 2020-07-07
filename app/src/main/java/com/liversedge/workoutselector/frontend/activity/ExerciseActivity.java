@@ -2,12 +2,14 @@ package com.liversedge.workoutselector.frontend.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 import com.liversedge.workoutselector.R;
@@ -22,18 +24,14 @@ import com.liversedge.workoutselector.utils.ExerciseImageIds;
 import com.liversedge.workoutselector.utils.ImageHelper;
 
 import static com.liversedge.workoutselector.utils.Constants.INTENT_EXERCISE_ID;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID;
+import static com.liversedge.workoutselector.utils.Constants.INTENT_WORKOUT_ID_IS_PRESENT;
 
 public class ExerciseActivity extends AppCompatActivity {
 
     // Youtube video set elements
     private YouTubePlayerView exerciseVideoView;
     private YouTubePlayer.OnInitializedListener onInitializedListener;
-
-    // UI Elements
-    private TextView exerciseNameText, exerciseDurationText,
-            exerciseDurationUnitText,
-            authorNameText, equipmentText;
-    private ImageView authorImage;
 
     // SQL related
     private AppDatabase localDB;
@@ -44,6 +42,12 @@ public class ExerciseActivity extends AppCompatActivity {
 
     // Exercise to image and video id helper
     ExerciseImageIds exerciseImageIds;
+
+    // Top app bar
+    MaterialToolbar topAppBar;
+
+    // Workout ID
+    private int workoutID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +64,8 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseGroup = localDB.appDao().getExerciseGroupsByGroupID(exercise.groupID).get(0);
         workout = localDB.appDao().getWorkoutByID(exercise.workoutID).get(0);
 
-        // Create rounded author image
-        // TODO: Get profile images
-        RoundedBitmapDrawable authorDrawable = ImageHelper.getRoundedImage(R.drawable.lucaprofile, 10, this);
+        // Get the workout id
+        workoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
 
         // Get the video ID
         exerciseImageIds = new ExerciseImageIds();
@@ -76,56 +79,30 @@ public class ExerciseActivity extends AppCompatActivity {
                 exercise.id
         );
 
+        // Set up the top navigation bar
+        topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Navigate to home again
+                Intent toHome = new Intent(ExerciseActivity.this, MainActivity.class);
+                toHome.putExtra(INTENT_WORKOUT_ID, workoutID);
+                toHome.putExtra(INTENT_WORKOUT_ID_IS_PRESENT, true);
+                startActivity(toHome);
+            }
+        });
+
+        // Capitalize first letter + change title
+        String text = exercise.name.toLowerCase();
+        String cap = text.substring(0, 1).toUpperCase() + text.substring(1);
+        topAppBar.setTitle(cap);
+
         // Create the video
         // Create Youtube Fragment instance by passing a Youtube Video ID
         YoutubeVideoFragment youtubeFragment =
                 YoutubeVideoFragment.newInstance(videoID);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.exerciseInstructionVideo, youtubeFragment).commit();
-
-        // Get the UI Elements
-        exerciseNameText = findViewById(R.id.timeElapsedDescription);
-        exerciseDurationText = findViewById(R.id.workoutCurrentTime);
-        exerciseDurationUnitText = findViewById(R.id.exerciseLengthUnitText);
-        authorNameText = findViewById(R.id.authorName);
-        equipmentText = findViewById(R.id.equipmentText);
-        authorImage = findViewById(R.id.authorImageView);
-
-        // Set the UI Elements
-        setExerciseName(exercise.name);
-        if(exercise.isTimed) {
-            setExerciseDuration(exerciseItem.getDuration());
-            setExerciseDurationUnit("");
-        } else {
-            setExerciseDuration(String.valueOf(exercise.duration));
-            setExerciseDurationUnit(exerciseItem.getEnding());
-        }
-        setAuthorName(workout.author);
-        String equipment=exercise.equipment.equals("none") ? "No equipment needed" : exercise.equipment;
-        setEquipmentText(equipment);
-        setAuthorImage(authorDrawable);
-    }
-
-    private void setAuthorImage(RoundedBitmapDrawable drawable) { authorImage.setImageDrawable(drawable); }
-
-    private void setEquipmentText(String equipment) {
-        equipmentText.setText(equipment);
-    }
-
-    private void setAuthorName(String authorName) {
-        authorNameText.setText(authorName);
-    }
-
-    private void setExerciseName(String exerciseName) {
-        exerciseNameText.setText(exerciseName);
-    }
-
-    private void setExerciseDuration(String exerciseDuration) {
-        exerciseDurationText.setText(exerciseDuration);
-    }
-
-    private void setExerciseDurationUnit(String exerciseDurationUnit) {
-        exerciseDurationUnitText.setText(exerciseDurationUnit);
     }
 
 }

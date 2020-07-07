@@ -29,6 +29,7 @@ public class ExerciseImageIds {
         nameToImageID.put("up & down plank", R.drawable.plank);
         nameToImageID.put("plank", R.drawable.plank);
         nameToImageID.put("push up", R.drawable.push_up);
+        nameToImageID.put("push", R.drawable.push_up);
         nameToImageID.put("press up", R.drawable.push_up);
         nameToImageID.put("tricep dip", R.drawable.tricep_dips);
         nameToImageID.put("sit up", R.drawable.situp);
@@ -44,14 +45,72 @@ public class ExerciseImageIds {
         nameToImageID.put("barbell thruster", R.drawable.barbellthruster);
         nameToImageID.put("box jump", R.drawable.boxjump);
         nameToImageID.put("barbell deadlift", R.drawable.deadlift);
-        nameToImageID.put("barbell push press", R.drawable.pushpress);
+        nameToImageID.put("push press", R.drawable.pushpress);
         nameToImageID.put("pull up", R.drawable.pullup);
         nameToImageID.put("russian twist", R.drawable.russiantwist);
         nameToImageID.put("rest", R.drawable.rest);
+        nameToImageID.put("butterfly sit up", R.drawable.butterflysitup);
+        nameToImageID.put("chin up", R.drawable.chinup);
+        nameToImageID.put("cossack squat with bicep curl", R.drawable.cossacksquat);
+        nameToImageID.put("cossack squat", R.drawable.cossacksquat);
+        nameToImageID.put("devil press", R.drawable.devilpress);
+        nameToImageID.put("double under", R.drawable.doubleunder);
+        nameToImageID.put("dumbell alternative lunge", R.drawable.dumbelllunge);
+        nameToImageID.put("dumbell bench press", R.drawable.dumbellbenchpress);
+        nameToImageID.put("dumbell clean", R.drawable.clean);
+        nameToImageID.put("barbell clean", R.drawable.barbellclean);
+        nameToImageID.put("dumbell cluster", R.drawable.clean);
+        nameToImageID.put("dumbell deadlift", R.drawable.deadlift);
+        nameToImageID.put("dumbell devil press", R.drawable.devilpress);
+        nameToImageID.put("dumbell glute bridge", R.drawable.dumbellglutebridge);
+        nameToImageID.put("glute bridge", R.drawable.dumbellglutebridge);
+        nameToImageID.put("dumbell goblet squat", R.drawable.dumbellgobletsquat);
+        nameToImageID.put("dumbell lunge", R.drawable.dumbelllunge);
+        nameToImageID.put("dumbell man maker", R.drawable.dumbellmanmaker);
+        nameToImageID.put("dumbell push press", R.drawable.pushpress);
+        nameToImageID.put("dumbell renegrade row", R.drawable.dumbellrenegaderow);
+        nameToImageID.put("dumbell romanian deadlift", R.drawable.dumbellromaniandeadlift);
+        nameToImageID.put("dumbell single arm snatch", R.drawable.dumbellsinglearmsnatch);
+        nameToImageID.put("dumbell snatch", R.drawable.dumbellsinglearmsnatch);
+        nameToImageID.put("dumbell squat clean", R.drawable.dumbellsquatclean);
+        nameToImageID.put("dumbell squat", R.drawable.dumbellsquats);
+        nameToImageID.put("dumbell thruster", R.drawable.dumbellthruster);
+        nameToImageID.put("floor lying dumbell chest press", R.drawable.floorlyingdumbellchestpress);
+        nameToImageID.put("barbell front squat", R.drawable.barbellfrontsquat);
+        nameToImageID.put("barbell glute bridge", R.drawable.barbellglutebridge);
+        nameToImageID.put("hand release push ups with shoulder tap", R.drawable.push_up);
+        nameToImageID.put("hand releasing push up", R.drawable.push_up);
+        nameToImageID.put("handstand push up (HSPU)", R.drawable.handstandpushup);
+        nameToImageID.put("handstand push up", R.drawable.handstandpushup);
+        nameToImageID.put("hang power clean", R.drawable.hangpowerclean);
+        nameToImageID.put("hollw hold", R.drawable.hollowhold);
+        nameToImageID.put("hollow hold", R.drawable.hollowhold);
+        nameToImageID.put("inverted row", R.drawable.invertedrow);
+        nameToImageID.put("jumping squat", R.drawable.jumpingsquat);
+        nameToImageID.put("kettlebell goblet squat", R.drawable.kettlebellgobletsquat);
+        nameToImageID.put("kettlebell swing", R.drawable.kettlebellswing);
+        nameToImageID.put("plate ground to overhead", R.drawable.plategroundtooverhead);
+        nameToImageID.put("power clean", R.drawable.clean);
+        nameToImageID.put("clean", R.drawable.clean);
+        nameToImageID.put("barbell push press", R.drawable.barbellpushpress);
+        nameToImageID.put("reverse lunge", R.drawable.reverselunge);
+        nameToImageID.put("single arm dumbell push press", R.drawable.singlearmdumbellpushpress);
+        nameToImageID.put("single arm dumbell snatch", R.drawable.singlearmdumbellsnatch);
+        nameToImageID.put("single skip", R.drawable.singleskip);
+        nameToImageID.put("single-leg v sit up", R.drawable.singlelegvsitup);
+        nameToImageID.put("step over box", R.drawable.stepoverbox);
+        nameToImageID.put("stretch crunch", R.drawable.stretchcrunch);
+        nameToImageID.put("shoulder press", R.drawable.strictshoulderpress);
+        nameToImageID.put("sumo squat up right row", R.drawable.sumosquatuprightrow);
+        nameToImageID.put("toes to bar", R.drawable.toestobar);
+        nameToImageID.put("v-crunch", R.drawable.vcrunch);
+        nameToImageID.put("wall walk", R.drawable.wallwalk);
+        nameToImageID.put("barbell bench press", R.drawable.benchpress);
         // Cardio
         nameToImageID.put("run", R.drawable.run);
         nameToImageID.put("sprint", R.drawable.run);
         nameToImageID.put("row", R.drawable.row);
+        nameToImageID.put("skip", R.drawable.doubleunder);
         // Descriptions
         nameToImageID.put("hidden", android.R.color.transparent);
         nameToImageID.put("image_1", R.drawable.ic_looks_one_24px);
@@ -105,6 +164,7 @@ public class ExerciseImageIds {
         nameToVideoID.put("dumbell romanian deadlift", "UsOjCcxSJaI");
         nameToVideoID.put("dumbell single arm snatch", "mx8mr0xV8L0");
         nameToVideoID.put("dumbell squat clean", "SYxObzJ3gn0");
+        nameToVideoID.put("dumbell squat", "rotBMUQHdZk");
         nameToVideoID.put("dumbell thruster", "VdPjfmRcQfw");
         nameToVideoID.put("floor lying dumbell chest press", "lNdi7VEf2Ew"); // t=18
         nameToVideoID.put("barbell front squat", "-iPN3LLg3Yo");
@@ -170,8 +230,8 @@ public class ExerciseImageIds {
         String[] l = w.split(" ");
 
         // Try consecutive triple words
-        for(int i=0; i<l.length-1; i++) {
-            resourceID = findPluralVideo(l[i] + " " + l[i+1]);
+        for(int i=0; i<l.length-2; i++) {
+            resourceID = findPluralVideo(l[i] + " " + l[i+1] + " " + l[i+2]);
             if(resourceID != null) { return resourceID; }
         }
 
@@ -228,8 +288,8 @@ public class ExerciseImageIds {
         String[] l = w.split(" ");
 
         // Try consecutive triple words
-        for(int i=0; i<l.length-1; i++) {
-            resourceID = findPluralImages(l[i] + " " + l[i+1]);
+        for(int i=0; i<l.length-2; i++) {
+            resourceID = findPluralImages(l[i] + " " + l[i+1]+ " " + l[i+2]);
             if(resourceID != null) { return resourceID; }
         }
 

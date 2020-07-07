@@ -5,9 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,6 +19,7 @@ import com.liversedge.workoutselector.frontend.activity.WorkoutActivity;
 import com.liversedge.workoutselector.frontend.videos.YoutubeVideoFragment;
 import com.liversedge.workoutselector.utils.AnimationHandler;
 import com.liversedge.workoutselector.utils.ExerciseImageIds;
+import com.liversedge.workoutselector.utils.ImageHelper;
 import com.liversedge.workoutselector.utils.TimeFormatter;
 
 import java.util.List;
@@ -158,11 +161,15 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
         private Button showVideoButton;
         private ConstraintLayout exerciseViewHolder, exerciseTimerView;
         private FrameLayout youtubeVideo;
+        private View dividerLine;
+        private ImageView exerciseImageView;
 
         public ViewHolder(View v){
 
             super(v);
 
+            exerciseImageView = (ImageView) v.findViewById(R.id.exerciseImageLargeExerciseItem);
+            dividerLine = (View) v.findViewById(R.id.dividerExerciseLargeItem);
             youtubeVideo = (FrameLayout) v.findViewById(R.id.exerciseItemVideo);
             showVideoButton = (Button) v.findViewById(R.id.showVideoButton);
             exerciseNameTextView = (TextView) v.findViewById(R.id.timeElapsedDescription);
@@ -192,6 +199,7 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             holder.exerciseViewHolder.setVisibility(View.GONE);
             holder.exerciseTimerView.setVisibility(View.GONE);
             holder.youtubeVideo.setVisibility(View.GONE);
+            holder.dividerLine.setVisibility(View.GONE);
 
             // Set the description text
             holder.groupDescriptionTextView.setVisibility(View.VISIBLE);
@@ -207,23 +215,33 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             // Show the exercise view
             holder.exerciseViewHolder.setVisibility(View.VISIBLE);
             holder.exerciseTimerView.setVisibility(View.VISIBLE);
+            holder.dividerLine.setVisibility(View.VISIBLE);
+
+            // Update the image
+            Integer image = exerciseImageIds.getImageByExerciseName(exercise.name);
+
+            RoundedBitmapDrawable exerciseIconDrawable = ImageHelper.getRoundedImage(image, 100, context);
+            holder.exerciseImageView.setImageDrawable(exerciseIconDrawable);
+
 
             // Hide the description view
             holder.groupDescriptionTextView.setVisibility(View.GONE);
 
             // Highlight the active exercise
-            if(isActive && isTimedWorkout) {
-                // Highlight card and update time
-                holder.exerciseViewHolder.setBackground(context.getResources().getDrawable(R.drawable.highlight_card));
-            } else {
-                // Set time taken part to placeholder
-                holder.exerciseViewHolder.setBackground(context.getResources().getDrawable(R.drawable.card));
-            }
+//            if(isActive && isTimedWorkout) {
+//                // Highlight card and update time
+//                holder.exerciseViewHolder.setBackground(context.getResources().getDrawable(R.drawable.highlight_card));
+//            } else {
+//                // Set time taken part to placeholder
+//                holder.exerciseViewHolder.setBackground(context.getResources().getDrawable(R.drawable.card));
+//            }
             String name = exercise.name;
             Integer duration = exercise.duration;
             String equipment = exercise.equipment.equals("none") ? "No equipment needed" : exercise.equipment;
 
-            if (!exercise.isTimed) {
+            if(duration == -1) {
+                holder.timeTakenTextView.setText("-");
+            } else if (!exercise.isTimed) {
                 holder.timeTakenTextView.setText(String.valueOf(duration) + (exercise.hasEnding ? exercise.ending : ""));
             } else {
                 holder.timeTakenTextView.setText(TimeFormatter.convertMilliSecondsToString(duration*1000));

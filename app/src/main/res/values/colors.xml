@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#39394D</color>
-    <color name="colorPrimaryDark">#000</color>
+    <color name="colorPrimary">#5756d0</color>
+    <color name="colorPrimaryDark">#111</color>
     <color name="colorPrimaryLight">#2D8CFF</color>
     <color name="colorAccent">#2D8CFF</color>
     <color name="colorBackground">#f2f2f7</color>
@@ -9,7 +9,7 @@
     <color name="colorWhite">#ffffff</color>
 
     <color name="actionBarText">#ffffff</color>
-    <color name="actionBarBackground">#2D8CFF</color>
+    <color name="actionBarBackground">#5756d0</color>
 
     <color name="inputTextColor">#000</color>
     <color name="textColor">#000</color>

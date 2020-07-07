@@ -40,4 +40,5 @@ public class Constants {
     public static final String INTENT_TIME_TAKEN = "net.liversedge.cameratutorial.TIME_TAKEN";
     public static final String INTENT_EXERCISE_ID = "net.liversedge.cameratutorial.EXERCISE_ID";
     public static final String INTENT_WORKOUT_ID = "net.liversedge.cameratutorial.WORKOUT_ID";
+    public static final String INTENT_WORKOUT_ID_IS_PRESENT = "net.liversedge.cameratutorial.WORKOUT_ID_IS_PRESENT";
 }

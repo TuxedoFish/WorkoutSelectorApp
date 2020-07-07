@@ -2,7 +2,7 @@
     <string name="app_name">WorkoutSelector</string>
     <string name="equipment_description">Equipment:</string>
     <string name="target_description">Target Muscle Groups</string>
-    <string name="equipment_button">Select Equipment</string>
+    <string name="equipment_button">Equipment</string>
     <string name="placeholder_workout_title">Workout Loading...</string>
     <string name="authorBy">"By "</string>
     <string name="placeholder_workout_author">author loading...</string>
@@ -12,9 +12,9 @@
     <string name="test">Test</string>
     <string name="confirm_button">Confirm</string>
     <string name="loading">Loading...</string>
-    <string name="home_settings_description">What kind of workout?</string>
-    <string name="randomize">New workout</string>
     <string name="repetitions_placeholder">Repetitions</string>
+    <string name="randomize">Search</string>
+    <string name="home_settings_description">What kind of workout?</string>
     <string name="workout_by">Workout by,</string>
     <string name="no_text" />
     <string name="example_exercise_name">Air Squats</string>
@@ -33,7 +33,18 @@
     <string name="pause_exercise">Pause</string>
     <string name="workout_time_remaining">Time remaining</string>
     <string name="play_button">Play</string>
-    <string name="workout_finished">Congratulations you finished the workout in:</string>
+    <string name="workout_finished">Workout completed in:</string>
     <string name="example_time_taken">00:00</string>
     <string name="return_to_workout">Return to home</string>
+    <string name="page_home_title">Home</string>
+    <string name="search">Search</string>
+    <string name="equipment">equipment</string>
+    <string name="filter">filter</string>
+    <string name="content_description_filter">Filter the workouts</string>
+    <string name="content_description_equipment">Choose available equipment</string>
+    <string name="content_description_search">Pick a random workout</string>
+    <string name="page_equipment_title">Equipment</string>
+    <string name="page_workout_title">Workout</string>
+    <string name="page_exercise_title">Exercise</string>
+    <string name="page_workout_finished_title">Workout finished</string>
 </resources>

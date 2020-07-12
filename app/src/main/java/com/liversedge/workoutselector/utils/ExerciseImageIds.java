@@ -32,6 +32,7 @@ public class ExerciseImageIds {
         nameToImageID.put("push", R.drawable.push_up);
         nameToImageID.put("press up", R.drawable.push_up);
         nameToImageID.put("tricep dip", R.drawable.tricep_dips);
+        nameToImageID.put("dip", R.drawable.tricep_dips);
         nameToImageID.put("sit up", R.drawable.situp);
         nameToImageID.put("lunge", R.drawable.lunge);
         nameToImageID.put("burpee", R.drawable.burpee);
@@ -54,6 +55,7 @@ public class ExerciseImageIds {
         nameToImageID.put("cossack squat with bicep curl", R.drawable.cossacksquat);
         nameToImageID.put("cossack squat", R.drawable.cossacksquat);
         nameToImageID.put("devil press", R.drawable.devilpress);
+        nameToImageID.put("devils press", R.drawable.devilpress);
         nameToImageID.put("double under", R.drawable.doubleunder);
         nameToImageID.put("dumbell alternative lunge", R.drawable.dumbelllunge);
         nameToImageID.put("dumbell bench press", R.drawable.dumbellbenchpress);
@@ -124,6 +126,7 @@ public class ExerciseImageIds {
          */
         nameToVideoID.put("ab wheel roll out", "A3uK5TPzHq8"); // t=224
         nameToVideoID.put("air squat", "C_VtOYc6j5c");
+        nameToVideoID.put("squat", "C_VtOYc6j5c");
         nameToVideoID.put("alternating half v sit up", "8WaDzRANv94"); // t=4
         nameToVideoID.put("alternating heel touches", "2zhFTw2epoc");
         nameToVideoID.put("alternating lunge jump", "6SFgE2_og_s");
@@ -148,7 +151,9 @@ public class ExerciseImageIds {
         nameToVideoID.put("chin up", "brhRXlOhsAM"); // t=146
         nameToVideoID.put("cossack squat with bicep curl", "YvxmS5BIPi8");
         nameToVideoID.put("devil press", "zlqEtAUds-I");
+        nameToVideoID.put("devils press", "zlqEtAUds-I");
         nameToVideoID.put("dip", "JR0PUrVAFyA");
+        nameToVideoID.put("double under", "82jNjDS19lg");
         nameToVideoID.put("dumbell alternative lunge", "PFwB_6NWP60");
         nameToVideoID.put("dumbell bench press", "rkvSI8A7MJs");
         nameToVideoID.put("dumbell clean", "3PnWQwabq4Y");
@@ -193,6 +198,7 @@ public class ExerciseImageIds {
         nameToVideoID.put("push press", "iaBVSJm78ko");
         nameToVideoID.put("reverse lunge", "dwl6udmeGS4");
         nameToVideoID.put("run", "NYjw5woEMIA");
+        nameToVideoID.put("row", "HCo9_CXoJj0");
         nameToVideoID.put("russian twist", "vsEk9-OrROs");
         nameToVideoID.put("single arm dumbell push press", "wXbeU7eUhJ8");
         nameToVideoID.put("single arm dumbell snatch", "3mlhF3dptAo");

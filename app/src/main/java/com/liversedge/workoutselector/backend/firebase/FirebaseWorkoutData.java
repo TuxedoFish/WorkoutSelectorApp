@@ -39,7 +39,7 @@ import static com.liversedge.workoutselector.utils.Constants.TITLE_FIELD;
 
 public class FirebaseWorkoutData {
 
-    public static void loadWorkouts(final Context context) {
+    public static void loadWorkouts(final Context context, final FirebaseWorkoutLoader loader) {
         final FirebaseFirestore firebaseDB = FirebaseFirestore.getInstance();
         final AppDatabase localDB = Migrations.getInstance(context).db;
 
@@ -80,7 +80,7 @@ public class FirebaseWorkoutData {
                             );
 
                             // Handle the groups snapshot
-                            handleGroupSnapshot(groupsSnapshot, title, id, localDB);
+                            handleGroupSnapshot(groupsSnapshot, title, id, localDB, loader);
                         }
                     }
                 })
@@ -93,7 +93,8 @@ public class FirebaseWorkoutData {
     }
 
     private static void handleGroupSnapshot(Task<QuerySnapshot> snapshot, final String workoutTitle,
-                                            final Long workoutID, final AppDatabase localDB) {
+                                            final Long workoutID, final AppDatabase localDB,
+                                            final FirebaseWorkoutLoader loader) {
 
         snapshot.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -118,14 +119,15 @@ public class FirebaseWorkoutData {
                             )
                     );
 
-                    handleGroupSnapshot(promise, workoutID, groupID, localDB);
+                    handleGroupSnapshot(promise, workoutID, groupID, localDB, loader, j==groups.size()-1);
                 }
             }
         });
     }
 
     private static void handleGroupSnapshot(Task<QuerySnapshot> snapshot, final Long workoutID,
-                                            final Long groupID, final AppDatabase localDB) {
+                                            final Long groupID, final AppDatabase localDB,
+                                            final FirebaseWorkoutLoader loader, final boolean isFinalGroup) {
         snapshot.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -188,6 +190,10 @@ public class FirebaseWorkoutData {
                 }
 
                 localDB.appDao().insertAllExercises(newExercises);
+
+                if(isFinalGroup) {
+                    loader.onWorkoutLoaded();
+                }
             }
         });
     }

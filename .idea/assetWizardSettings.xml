@@ -45,13 +45,35 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="foregroundClipArt">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundImage">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="51" />
+                                                <entry key="scalingPercent" value="53" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="foregroundText">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -62,8 +84,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="2d8cff" />
-                                      <entry key="foregroundImage" value="C:\Users\Harry\Downloads\fitness_center-24px.svg" />
+                                      <entry key="backgroundColor" value="5756d0" />
+                                      <entry key="foregroundImage" value="C:\Users\Harry\Pictures\Fitspiration\fitspiration-icon-drop-shadow.svg" />
                                     </map>
                                   </option>
                                 </PersistentState>

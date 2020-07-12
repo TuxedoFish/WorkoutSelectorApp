@@ -8,4 +8,6 @@ public interface FirebaseWorkoutLoader {
 
     public void onEquipmentLoadedFailure();
     public void onEquipmentLoadedSuccess(List<String> equipment);
+
+    public void onWorkoutLoaded();
 }

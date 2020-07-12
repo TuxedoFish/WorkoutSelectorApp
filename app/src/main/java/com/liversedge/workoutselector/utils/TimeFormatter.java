@@ -18,7 +18,7 @@ public class TimeFormatter {
         int hours = (int) Math.floor(minutes / 60);
         minutes = minutes - (hours * 60);
 
-        String hoursAsString = String.valueOf(minutes);
+        String hoursAsString = String.valueOf(hours);
         if(hours < 10) { hoursAsString = "0" + hoursAsString;}
 
         String minutesAsString = String.valueOf(minutes);

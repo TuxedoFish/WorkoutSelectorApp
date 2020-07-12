@@ -45,6 +45,7 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
     private float currentTime = 0.0f;
     private int groupStartIndex, repetitions, repeatGroupFor = 1;
     private boolean isTimedWorkout;
+    private int videoOpenIndex = -1;
 
     public interface WorkoutUpdates {
         public void finishWorkout();
@@ -223,7 +224,6 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             RoundedBitmapDrawable exerciseIconDrawable = ImageHelper.getRoundedImage(image, 100, context);
             holder.exerciseImageView.setImageDrawable(exerciseIconDrawable);
 
-
             // Hide the description view
             holder.groupDescriptionTextView.setVisibility(View.GONE);
 
@@ -235,6 +235,7 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
 //                // Set time taken part to placeholder
 //                holder.exerciseViewHolder.setBackground(context.getResources().getDrawable(R.drawable.card));
 //            }
+
             String name = exercise.name;
             Integer duration = exercise.duration;
             String equipment = exercise.equipment.equals("none") ? "No equipment needed" : exercise.equipment;
@@ -252,6 +253,8 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
             if(isVideoShown && nextState) {
 
                 holder.youtubeVideo.setVisibility(View.VISIBLE);
+                holder.showVideoButton.setEnabled(true);
+                holder.showVideoButton.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
 
             }
 
@@ -259,46 +262,22 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
 
                 holder.youtubeVideo.setVisibility(View.GONE);
 
-            }
-
-            if (isVideoShown && !nextState) {
-
-                // Delete old fragment
-
-                int containerId = holder.youtubeVideo.getId();// Get container id
-                YoutubeVideoFragment oldFragment = (YoutubeVideoFragment) fragmentManager.findFragmentById(containerId);
-                if (oldFragment != null) {
-                    fragmentManager.beginTransaction().remove(oldFragment).commit();
-                }
-
-                // Slide it up
-                AnimationHandler.slide_up(holder.youtubeVideo, ANIMATION_PROPORTION);
-
-                // Update state
-                exercises.get(position).setVideoShown(false);
-
-                // Trigger the other video to open
-                if (triggerAnimationIndex != -1) {
-                    exercises.get(triggerAnimationIndex).setNextState(true);
-
-                    context.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(50);
-                                notifyItemChanged(triggerAnimationIndex);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-
-                    triggerAnimationIndex = -1;
+                if(videoOpenIndex != -1) {
+                    holder.showVideoButton.setEnabled(false);
+                    holder.showVideoButton.setBackgroundColor(context.getResources().getColor(R.color.textColorMid));
+                    holder.showVideoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_arrow_24px, 0, 0, 0);
+                } else {
+                    holder.showVideoButton.setEnabled(true);
+                    holder.showVideoButton.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                    holder.showVideoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_arrow_24px, 0, 0, 0);
                 }
 
             }
 
             if (!isVideoShown && nextState) {
+
+                // Update state
+                exercises.get(position).setVideoShown(true);
 
                 // Create the video
                 // Create Youtube Fragment instance by passing a Youtube Video ID
@@ -318,8 +297,11 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
                 // Make it appear
                 AnimationHandler.slide_down(holder.youtubeVideo, ANIMATION_PROPORTION);
 
-                // Update state
-                exercises.get(position).setVideoShown(true);
+                // Enabled video button
+                holder.showVideoButton.setEnabled(true);
+                holder.showVideoButton.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                // Change video button icon
+                holder.showVideoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stop_24px, 0, 0, 0);
             }
 
             holder.showVideoButton.setOnClickListener(new View.OnClickListener() {
@@ -328,38 +310,36 @@ public class WorkoutExerciseAdapter extends RecyclerView.Adapter<WorkoutExercise
 
                     if (!exercises.get(position).isVideoShown()) {
 
-                        boolean isAnotherVideoOpen = false;
-                        int otherVideoID = -1;
+                        // Update state
+                        exercises.get(position).setNextState(true);
+                        videoOpenIndex = position;
+                        notifyDataSetChanged();
 
-                        // Close the other videos
-                        for (int i = 0; i < exercises.size(); i++) {
-                            if (i != position && exercises.get(i).isVideoShown()) {
-                                exercises.get(i).setNextState(false);
-                                isAnotherVideoOpen = true;
-                                otherVideoID = i;
-                            }
-                        }
-
-                        // Update this view
-                        if (isAnotherVideoOpen) {
-                            triggerAnimationIndex = position;
-                            notifyItemChanged(otherVideoID);
-                        } else {
-                            exercises.get(position).setNextState(true);
-                            notifyItemChanged(position);
-                        }
                     } else {
+
+                        // Update state
+                        exercises.get(position).setNextState(false);
+                        exercises.get(position).setVideoShown(false);
+
                         // Delete old fragment
-                        int containerId = holder.youtubeVideo.getId();// Get container id
+                        int containerId = holder.youtubeVideo.getId();
                         YoutubeVideoFragment oldFragment = (YoutubeVideoFragment) fragmentManager.findFragmentById(containerId);
                         if (oldFragment != null) {
                             fragmentManager.beginTransaction().remove(oldFragment).commit();
                         }
 
+                        // Slide it up
                         AnimationHandler.slide_up(holder.youtubeVideo, ANIMATION_PROPORTION);
-                        exercises.get(position).setVideoShown(false);
-                        exercises.get(position).setNextState(false);
-                        notifyItemChanged(position);
+
+                        // Enabled video button
+                        holder.showVideoButton.setEnabled(true);
+                        holder.showVideoButton.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+                        // Change video button icon
+                        holder.showVideoButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_play_arrow_24px, 0, 0, 0);
+
+                        // Update state
+                        videoOpenIndex = -1;
+                        notifyDataSetChanged();
                     }
                 }
             });

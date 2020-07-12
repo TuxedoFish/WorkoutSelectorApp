@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.liversedge.workoutselector.R;
@@ -57,15 +58,17 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
     // Local SQL holding the settings
     private AppDatabase localDB;
 
-    // Nacho type views for the muscle group
-    private NachoTextView muscleGroupsView;
-
     // Current state
     private ArrayList<WorkoutDAO> workouts;
     private int workoutID;
 
     // Top app bar
     MaterialToolbar topAppBar;
+
+    // Initial start up
+    private boolean hasLoaded = false;
+    private TextView loadingTextView;
+    private int workoutsLoaded = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,17 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
         // Load the settings in
         equipment = localDB.appDao().getSettings();
 
+        // Hide the exercise view
+        workoutScroller.setVisibility(View.GONE);
+
+        // Loading text view
+        loadingTextView = findViewById(R.id.loadingTextView);
+
+        // Whether or not to return to workout I was last on
+        Intent intent = getIntent();
+        boolean shouldReturn = intent.getBooleanExtra(INTENT_WORKOUT_ID_IS_PRESENT, false);
+        Integer intentWorkoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
+
         // TODO: Only call these functions occassionally and cache data
         // Load the workouts from firebase only if there are none locally
         boolean shouldReload = localDB.appDao().getAllWorkouts().size() == 0;
@@ -107,7 +121,28 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
             localDB.appDao().deleteExerciseGroups();
             localDB.appDao().deleteExercises();
 
-            FirebaseWorkoutData.loadWorkouts(this);
+            FirebaseWorkoutData.loadWorkouts(this, this);
+        } else {
+            // Loaded
+            hasLoaded = true;
+
+            // Update the list of workouts
+            updateScroller();
+
+            // Show the scroller and button
+            loadingTextView.setVisibility(View.GONE);
+            workoutScroller.setVisibility(View.VISIBLE);
+            startWorkoutButton.setVisibility(View.VISIBLE);
+
+            // Spin the workouts
+            if(shouldReturn) {
+                // Attempt to set it to the workout id and if that doesn't work then re-spin
+                if(!workoutScroller.setValueFixedWorkoutID(intentWorkoutID)) {
+                    workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
+                }
+            } else {
+                workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
+            }
         }
 
         // Load target areas from firebase
@@ -131,31 +166,6 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
             FirebaseWorkoutData.loadEquipment(this);
         }
 
-        // Hide the exercise view
-        workoutScroller.setVisibility(View.GONE);
-
-        // Whether or not to return to workout I was last on
-        Intent intent = getIntent();
-        boolean shouldReturn = intent.getBooleanExtra(INTENT_WORKOUT_ID_IS_PRESENT, false);
-        Integer intentWorkoutID = intent.getIntExtra(INTENT_WORKOUT_ID, -1);
-
-        // Update the list of workouts
-        updateScroller();
-
-        // Show the scroller and button
-        workoutScroller.setVisibility(View.VISIBLE);
-        startWorkoutButton.setVisibility(View.VISIBLE);
-
-        // Spin the workouts
-        if(shouldReturn) {
-            // Attempt to set it to the workout id and if that doesn't work then re-spin
-            if(!workoutScroller.setValueFixedWorkoutID(intentWorkoutID)) {
-                workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
-            }
-        } else {
-            workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
-        }
-
         // Set up the top navigation bar
         topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
 //        topAppBar.setNavigationOnClickListener {
@@ -167,6 +177,18 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
              public boolean onMenuItemClick(MenuItem item) {
                  switch(item.getItemId()) {
                      case R.id.search:
+
+                         // Set has loaded
+                         hasLoaded = true;
+
+                         // Update the list of workouts
+                         updateScroller();
+
+                         // Show the scroller and button
+                         loadingTextView.setVisibility(View.GONE);
+                         workoutScroller.setVisibility(View.VISIBLE);
+                         startWorkoutButton.setVisibility(View.VISIBLE);
+
                          // Select a new random workout
                          workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
                          return true;
@@ -324,60 +346,6 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
         for(int i=0; i<groups.size(); i++) {
             targets.add(groups.get(i).name);
         }
-
-        // Using custom element
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item, new String[] {});
-
-        // Apply the adapter to the spinner
-        muscleGroupsView.setAdapter(adapter);
-
-        // Set all options as selected
-
-        muscleGroupsView.setText(targets);
-
-        // Set dropdown to always appear
-        muscleGroupsView.setThreshold(0);
-        muscleGroupsView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                muscleGroupsView.showDropDown();
-            }
-        });
-
-        // Change the suggestions based on which ones are present
-        muscleGroupsView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                // Filter the suggestions based on what is there
-                ArrayList<String> suggestions = new ArrayList<>();
-                List<String> values = muscleGroupsView.getChipValues();
-
-                for(int i=0; i<targets.size(); i++) {
-                    String suggestion = targets.get(i);
-
-                    if(!values.contains(suggestion)) {
-                        suggestions.add(suggestion);
-                    }
-                }
-
-                // Using custom element
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, R.layout.spinner_item, suggestions);
-
-                // Apply the adapter to the spinner
-                muscleGroupsView.setAdapter(adapter);
-            }
-        });
     }
 
     @Override
@@ -408,6 +376,36 @@ public class MainActivity extends AppCompatActivity implements IEventEnd, Fireba
                 // There is an old piece of equipment not on firebase
                 localDB.appDao().deleteSettingWithID(equipment.get(i).id);
             }
+        }
+    }
+
+    @Override
+    public void onWorkoutLoaded() {
+
+        // Count number of workouts
+        workoutsLoaded ++;
+
+        final int LOAD_EVERY = 3;
+        if(workoutsLoaded % LOAD_EVERY == 0) {
+            // Update the list of workouts
+            updateScroller();
+        }
+
+        if(workoutsLoaded > 50 && !hasLoaded) {
+
+            // Has now loaded
+            hasLoaded = true;
+
+            // Update the list of workouts
+            updateScroller();
+
+            // Show the scroller and button
+            loadingTextView.setVisibility(View.GONE);
+            workoutScroller.setVisibility(View.VISIBLE);
+            startWorkoutButton.setVisibility(View.VISIBLE);
+
+            // Select a new random workout
+            workoutScroller.setValueRandom(new Random().nextInt(workoutScroller.getNumberOfWorkouts()), new Random().nextInt(10) + 5);
         }
     }
 
